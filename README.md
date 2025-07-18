@@ -17,6 +17,12 @@
   </a>
 </p>
 
+<div align="center" style="margin: 30px 0;">
+  <a href="https://github.com/dantetesta/LLMS.txt-Generator-by-Dante-Testa/archive/refs/heads/main.zip" style="display:inline-block;">
+    <img src="https://img.shields.io/badge/DOWNLOAD%20PLUGIN-Vers%C3%A3o%202.0.0-2ea44f?style=for-the-badge&logo=wordpress&logoColor=white" alt="DOWNLOAD PLUGIN" width="300">
+  </a>
+</div>
+
 ## 🔎 O que é o arquivo llms.txt?
 
 O arquivo llms.txt é um padrão emergente similar ao robots.txt, mas focado em Inteligências Artificiais como ChatGPT, Claude e Gemini. Ele permite que proprietários de sites controlem quais partes do seu conteúdo podem ser acessadas, lidas e utilizadas por modelos de IA para treinamento ou geração de conteúdo.
@@ -167,7 +173,7 @@ Se este plugin está ajudando seu site a ter uma melhor interação com IAs, con
 - Suporte a todos os tipos de post personalizados
 - Opção para excluir posts individuais do arquivo
 
-### 1.0.0 (Janeiro 2025)
+### 1.0.0 (Julho 2025)
 - Lançamento inicial do plugin
 - Suporte básico ao arquivo llms.txt
 - Integração com a API OpenAI
