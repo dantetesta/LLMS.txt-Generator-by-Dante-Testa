@@ -1,6 +1,6 @@
 <p align="center">
   <img src="https://img.shields.io/badge/WordPress-Plugin-blue.svg" alt="WordPress Plugin">
-  <img src="https://img.shields.io/badge/Versão-2.0.0-green.svg" alt="Versão">
+  <img src="https://img.shields.io/badge/Versão-2.0.4-green.svg" alt="Versão">
   <img src="https://img.shields.io/badge/Licença-GPL%20v2%2B-orange.svg" alt="Licença">
 </p>
 
@@ -19,7 +19,7 @@
 
 <div align="center" style="margin: 30px 0;">
   <a href="https://github.com/dantetesta/LLMS.txt-Generator-by-Dante-Testa/archive/refs/heads/main.zip" style="display:inline-block;">
-    <img src="https://img.shields.io/badge/DOWNLOAD%20PLUGIN-Vers%C3%A3o%202.0.0-2ea44f?style=for-the-badge&logo=wordpress&logoColor=white" alt="DOWNLOAD PLUGIN" width="300">
+    <img src="https://img.shields.io/badge/DOWNLOAD%20PLUGIN-Vers%C3%A3o%202.0.4-2ea44f?style=for-the-badge&logo=wordpress&logoColor=white" alt="DOWNLOAD PLUGIN" width="300">
   </a>
 </div>
 
@@ -64,7 +64,21 @@ Este plugin simplifica a criação e gerenciamento deste arquivo em sites WordPr
 - **Admin Columns**: Visualização e gerenciamento de descrições diretamente na lista de posts
 - **Contador de caracteres**: Monitoramento do tamanho das descrições técnicas
 - **Compatibilidade com Gutenberg e Editor Clássico**
-- **Suporte à tradução**: Totalmente traduzível para qualquer idioma
+- **Configuração de CPTs**: Controle granular sobre fonte de conteúdo para tipos personalizados
+- **Campos personalizados**: Suporte completo a metafields como fonte de conteúdo
+- **Logs de debug**: Sistema de logging para troubleshooting e monitoramento
+- **Validação de APIs**: Verificação automática de chaves de API
+- **Fallbacks inteligentes**: Sistema de fallback quando conteúdo configurado não está disponível
+
+### 🌐 Internacionalização
+
+- **Multilíngue**: Suporte completo a múltiplos idiomas
+- **Português brasileiro**: Tradução nativa completa (pt_BR)
+- **Inglês americano**: Tradução completa (en_US)
+- **Sistema i18n**: Arquitetura robusta para adição de novos idiomas
+- **Formatos modernos**: Suporte a arquivos .po, .mo e .l10n.php
+- **Tradução automática**: Interface administrativa traduzida automaticamente
+- **Localização JavaScript**: Scripts localizados para feedback em tempo real
 
 ## 💾 Instalação
 
@@ -164,6 +178,23 @@ Se este plugin está ajudando seu site a ter uma melhor interação com IAs, con
 - [Link direto para doação](https://www.paypal.com/donate/?hosted_button_id=BAQGVU8MGWDTN)
 
 ## 📝 Changelog
+
+### 2.0.4 (Janeiro 2025)
+- 🌐 **Tradução completa para inglês americano (en_US)**
+- 🔧 **Correção do bulk generator para respeitar configuração de metafields em CPTs**
+- 🔧 **Correção do botão individual nas admin columns para usar fonte configurada**
+- 🔧 **Meta box agora funcional em todos os CPTs habilitados**
+- 🔧 **Geração automática respeita configuração de campos personalizados**
+- 🔧 **Arquivo llms.txt sem limite de posts (inclui todos os posts)**
+- 🔧 **CPTs respeitam fonte de conteúdo configurada no setup**
+- 🛠️ **Função auxiliar extract_post_content() centralizada**
+- 📊 **Logs de debug adicionados para troubleshooting**
+- 🎯 **Consistência entre todas as formas de geração**
+- 🔒 **Verificações de segurança aprimoradas**
+- 🌍 **Sistema i18n completamente implementado**
+- 📚 **Classe LLMS_Txt_I18n gerenciando traduções**
+- 🔄 **Carregamento automático de arquivos de tradução**
+- 🌐 **Suporte a múltiplos idiomas expandido**
 
 ### 2.0.0 (Julho 2025)
 - Integração com DeepSeek como alternativa à API OpenAI
