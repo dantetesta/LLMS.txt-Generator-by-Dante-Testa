@@ -215,6 +215,11 @@ class LLMS_Txt_Bulk_Generator {
      * @return string URL de redirecionamento modificada
      */
     public function handle_bulk_redirect($location, $status) {
+        // Verificar se a função get_current_screen() está disponível
+        if (!function_exists('get_current_screen')) {
+            return $location;
+        }
+        
         // Verificar se estamos em uma listagem de post types
         $screen = get_current_screen();
         if (!$screen || !in_array($screen->base, array('edit', 'edit-tags'))) {
