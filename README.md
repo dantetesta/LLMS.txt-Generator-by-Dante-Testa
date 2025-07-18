@@ -1,6 +1,6 @@
 <p align="center">
   <img src="https://img.shields.io/badge/WordPress-Plugin-blue.svg" alt="WordPress Plugin">
-  <img src="https://img.shields.io/badge/Versão-2.0.4-green.svg" alt="Versão">
+  <img src="https://img.shields.io/badge/Versão-2.0.6-green.svg" alt="Versão">
   <img src="https://img.shields.io/badge/Licença-GPL%20v2%2B-orange.svg" alt="Licença">
 </p>
 
@@ -17,10 +17,12 @@
   </a>
 </p>
 
-<div align="center" style="margin: 30px 0;">
-  <a href="https://github.com/dantetesta/LLMS.txt-Generator-by-Dante-Testa/archive/refs/heads/main.zip" style="display:inline-block;">
-    <img src="https://img.shields.io/badge/DOWNLOAD%20PLUGIN-Vers%C3%A3o%202.0.4-2ea44f?style=for-the-badge&logo=wordpress&logoColor=white" alt="DOWNLOAD PLUGIN" width="300">
+<div align="center" style="margin: 40px 0;">
+  <a href="https://github.com/dantetesta/LLMS.txt-Generator-by-Dante-Testa/releases/download/v2.0.6/LLMS.txt-Generator-v2.0.6.zip" style="display:inline-block; text-decoration: none;">
+    <img src="https://img.shields.io/badge/📥%20DOWNLOAD%20PLUGIN-Vers%C3%A3o%202.0.6-2ea44f?style=for-the-badge&logo=wordpress&logoColor=white&labelColor=1e40af" alt="DOWNLOAD PLUGIN" width="400" height="60">
   </a>
+  <br>
+  <small style="color: #666; margin-top: 10px; display: block;">✅ Versão mais recente | 🐛 Correções de bugs | 🚀 Pronto para produção</small>
 </div>
 
 ## 🔎 O que é o arquivo llms.txt?
@@ -179,37 +181,84 @@ Se este plugin está ajudando seu site a ter uma melhor interação com IAs, con
 
 ## 📝 Changelog
 
-### 2.0.4 (Janeiro 2025)
-- 🌐 **Tradução completa para inglês americano (en_US)**
-- 🔧 **Correção do bulk generator para respeitar configuração de metafields em CPTs**
-- 🔧 **Correção do botão individual nas admin columns para usar fonte configurada**
-- 🔧 **Meta box agora funcional em todos os CPTs habilitados**
-- 🔧 **Geração automática respeita configuração de campos personalizados**
-- 🔧 **Arquivo llms.txt sem limite de posts (inclui todos os posts)**
-- 🔧 **CPTs respeitam fonte de conteúdo configurada no setup**
-- 🛠️ **Função auxiliar extract_post_content() centralizada**
-- 📊 **Logs de debug adicionados para troubleshooting**
-- 🎯 **Consistência entre todas as formas de geração**
-- 🔒 **Verificações de segurança aprimoradas**
-- 🌍 **Sistema i18n completamente implementado**
-- 📚 **Classe LLMS_Txt_I18n gerenciando traduções**
-- 🔄 **Carregamento automático de arquivos de tradução**
-- 🌐 **Suporte a múltiplos idiomas expandido**
+### 🚀 Versão 2.0.6 (18 de Janeiro 2025)
 
-### 2.0.0 (Julho 2025)
-- Integração com DeepSeek como alternativa à API OpenAI
-- Nova interface com Tailwind CSS
-- Geração em massa via Admin Columns
-- Melhorias significativas de performance
-- Suporte a todos os tipos de post personalizados
-- Opção para excluir posts individuais do arquivo
+#### 🐛 **Correções Críticas**
+- **Erro Fatal Corrigido**: Resolvido erro `Call to undefined function get_current_screen()` no bulk generator
+- **Verificação de Segurança**: Adicionada verificação `function_exists()` antes de usar `get_current_screen()`
+- **Compatibilidade Melhorada**: Sistema mais robusto para diferentes contextos do WordPress
+- **Timing de Hooks**: Correção de problemas de timing entre hooks `wp_redirect` e `current_screen`
 
-### 1.0.0 (Julho 2025)
-- Lançamento inicial do plugin
-- Suporte básico ao arquivo llms.txt
-- Integração com a API OpenAI
-- Meta box para controle de conteúdo individual
-- Interface administrativa básica
+#### 🔧 **Melhorias Técnicas**
+- **Bulk Actions**: Sistema de ações em massa mais estável e confiável
+- **Error Handling**: Tratamento de erros aprimorado para prevenir falhas fatais
+- **Compatibilidade**: Melhor suporte a diferentes versões do WordPress
+
+---
+
+### 🌟 Versão 2.0.5 (17 de Janeiro 2025)
+
+#### 🎨 **Interface e Usabilidade**
+- **Layout Responsivo**: Interface ocupa 100% da largura disponível
+- **Switchers Melhorados**: Visual aprimorado para seleção de IA (OpenAI/DeepSeek)
+- **Botões Modernos**: Design mais intuitivo e acessível
+- **Seção do Desenvolvedor**: Layout profissional com informações de contato
+
+#### 🔧 **Correções de Funcionalidade**
+- **Switchers de Posts/Páginas**: Correção no salvamento de estados
+- **Campos Ocultos**: Implementação de hidden inputs para garantir envio correto
+- **JavaScript Aprimorado**: Melhor gerenciamento de eventos e estados
+
+---
+
+### 🌐 Versão 2.0.4 (16 de Janeiro 2025)
+
+#### 🌍 **Internacionalização**
+- **Tradução Completa**: Suporte total ao inglês americano (en_US)
+- **Sistema i18n**: Classe `LLMS_Txt_I18n` implementada
+- **Arquivos de Tradução**: `.po`, `.mo` e `.l10n.php` para múltiplos idiomas
+- **Carregamento Automático**: Detecção automática do idioma do WordPress
+
+#### 🔧 **Correções de CPTs**
+- **Bulk Generator**: Respeita configuração de metafields em CPTs
+- **Admin Columns**: Botão individual usa fonte configurada corretamente
+- **Meta Box**: Funcional em todos os CPTs habilitados
+- **Geração Automática**: Respeita configuração de campos personalizados
+- **Arquivo llms.txt**: Remove limite de 20 posts (inclui todos)
+
+#### 🛠️ **Melhorias Técnicas**
+- **Função Auxiliar**: `extract_post_content()` centralizada
+- **Logs de Debug**: Sistema de troubleshooting implementado
+- **Consistência**: Unificação entre todas as formas de geração
+- **Segurança**: Verificações aprimoradas em todo o sistema
+
+---
+
+### 🎉 Versão 2.0.0 (Julho 2025)
+
+#### 🚀 **Recursos Principais**
+- **DeepSeek Integration**: Alternativa à API OpenAI com modelo R1
+- **Interface Moderna**: Nova UI com Tailwind CSS
+- **Admin Columns**: Geração em massa via interface administrativa
+- **Performance**: Melhorias significativas de velocidade
+- **CPTs Completos**: Suporte total a tipos de post personalizados
+- **Exclusão Individual**: Opção para excluir posts específicos do arquivo
+
+#### 🎨 **Design e UX**
+- **Responsividade**: Layout adaptável para todos os dispositivos
+- **Acessibilidade**: Melhorias para usuários com necessidades especiais
+- **Feedback Visual**: Indicadores de status e progresso
+
+---
+
+### 🌱 Versão 1.0.0 (Julho 2025)
+
+#### 🎯 **Lançamento Inicial**
+- **Arquivo llms.txt**: Suporte básico ao padrão LLMS
+- **OpenAI Integration**: Integração com API GPT-4
+- **Meta Box**: Controle individual de conteúdo
+- **Interface Admin**: Painel administrativo básico
+- **WordPress Core**: Compatibilidade com versões 5.6+
 
 ## 👨‍💻 Sobre o Desenvolvedor
 
