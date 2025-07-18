@@ -1,3 +1,4 @@
+# LLMS.txt Generator - English Translation
 # Copyright (C) 2025 Dante Testa
 # This file is distributed under the GPL-2.0+.
 msgid ""
@@ -11,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2025-07-18 04:49+0000\n"
-"PO-Revision-Date: 2025-07-18 05:12+0000\n"
+"PO-Revision-Date: 2025-07-18 05:26+0000\n"
 "Language: en_US\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Loco https://localise.biz/\n"
@@ -56,27 +57,30 @@ msgstr "The description must have a maximum of 150 characters."
 msgid ""
 "Adicione conteúdo personalizado para o arquivo llms.txt. Use o formato "
 "Markdown."
-msgstr ""
+msgstr "Add custom content to the llms.txt file. Use Markdown format."
 
 #: templates/meta-box.php:212
 msgid ""
 "Adicione uma descrição deste conteúdo para ser exibida no arquivo llms.txt."
 msgstr ""
+"Add a description of this content to be displayed in the llms.txt file."
 
 #: templates/admin-page.php:213
 msgid ""
 "Adicione uma descrição personalizada para o seu site no arquivo llms.txt."
-msgstr ""
+msgstr "Add a custom description for your site in the llms.txt file."
 
 #: includes/class-llms-txt-admin.php:628
 msgid ""
 "Adicione uma descrição personalizada para o seu site no arquivo llms.txt. "
 "Esta descrição será exibida logo após o título do site."
 msgstr ""
+"Add a custom description for your site in the llms.txt file. This "
+"description will be displayed right after the site title."
 
 #: templates/admin-page.php:515 templates/admin-page.php:571
 msgid "Alternar visibilidade da chave"
-msgstr ""
+msgstr "Toggle key visibility"
 
 #: includes/class-llms-txt-i18n.php:85
 msgid "Arquivo atualizado com sucesso!"
@@ -87,18 +91,24 @@ msgid ""
 "Ativa/desativa a inclusão de posts no arquivo llms.txt e remove o metabox de "
 "edição"
 msgstr ""
+"Enable/disable the inclusion of posts in the llms.txt file and remove the "
+"editing metabox"
 
 #: templates/admin-page.php:268
 msgid ""
 "Ativa/desativa a inclusão de páginas no arquivo llms.txt e remove o metabox "
 "de edição"
 msgstr ""
+"Enable/disable the inclusion of pages in the llms.txt file and remove the "
+"editing metabox"
 
 #: templates/meta-box.php:229
 msgid ""
 "Ative esta opção para não incluir este conteúdo no arquivo llms.txt, "
 "tornando-o invisível para IAs."
 msgstr ""
+"Enable this option to not include this content in the llms.txt file, making "
+"it invisible to AIs."
 
 #: includes/class-llms-txt-i18n.php:80
 msgid "Atualizando arquivo..."
@@ -110,19 +120,19 @@ msgstr "Custom fields"
 
 #: templates/admin-page.php:888
 msgid "Canal no YouTube"
-msgstr ""
+msgstr "YouTube Channel"
 
 #: includes/class-llms-txt-bulk-generator.php:345
 msgid "Cancelar"
-msgstr ""
+msgstr "Cancel"
 
 #: includes/class-llms-txt-admin.php:183
 msgid "Chave da API DeepSeek V3"
-msgstr ""
+msgstr "DeepSeek V3 API Key"
 
 #: includes/class-llms-txt-admin.php:175 templates/admin-page.php:501
 msgid "Chave da API OpenAI"
-msgstr ""
+msgstr "OpenAI API Key"
 
 #: includes/class-llms-txt-meta-box.php:455
 msgid "Chave da API OpenAI não configurada."
@@ -130,7 +140,7 @@ msgstr "OpenAI API key not configured."
 
 #: templates/admin-page.php:557
 msgid "Chave da API OpenRouter (DeepSeek Chat v3)"
-msgstr ""
+msgstr "OpenRouter API Key (DeepSeek Chat v3)"
 
 #: includes/class-llms-txt-meta-box.php:460
 msgid "Chave da API OpenRouter (DeepSeek) não configurada."
@@ -138,7 +148,7 @@ msgstr "OpenRouter (DeepSeek) API key not configured."
 
 #: includes/class-llms-txt-admin.php:556
 msgid "Chave da API validada com sucesso!"
-msgstr ""
+msgstr "API key validated successfully!"
 
 #: includes/class-llms-txt-bulk-generator.php:527
 msgid "Chave de API da OpenAI não configurada."
@@ -166,11 +176,11 @@ msgstr ""
 
 #: includes/class-llms-txt-admin.php:105
 msgid "Configurações Gerais"
-msgstr ""
+msgstr "General Settings"
 
 #: includes/class-llms-txt-admin.php:306
 msgid "Configurações salvas com sucesso!"
-msgstr ""
+msgstr "Settings saved successfully!"
 
 #: templates/admin-page.php:429
 msgid ""
@@ -237,7 +247,7 @@ msgstr ""
 
 #: includes/class-llms-txt-admin.php:120 templates/admin-page.php:209
 msgid "Descrição do Site"
-msgstr ""
+msgstr "Site Description"
 
 #: includes/class-llms-txt-bulk-generator.php:318
 msgid "Descrição gerada com sucesso"
@@ -253,7 +263,7 @@ msgstr "Description already exists, skipping."
 
 #: includes/class-llms-txt-bulk-generator.php:138
 msgid "Descrição LLMS"
-msgstr ""
+msgstr "LLMS Description"
 
 #: templates/meta-box.php:209
 msgid "Descrição para IAs"
@@ -335,11 +345,11 @@ msgstr "Security error: nonce not provided."
 
 #: includes/class-llms-txt-bulk-generator.php:666
 msgid "Erro desconhecido da API DeepSeek."
-msgstr ""
+msgstr "Unknown DeepSeek API error."
 
 #: includes/class-llms-txt-bulk-generator.php:582
 msgid "Erro desconhecido da API OpenAI."
-msgstr ""
+msgstr "Unknown OpenAI API error."
 
 #: includes/class-llms-txt-bulk-generator.php:380
 msgid "Erro desconhecido durante o processamento em massa."
@@ -366,7 +376,7 @@ msgstr "Ex: _description, _weight, _info"
 
 #: templates/meta-box.php:222
 msgid "Excluir do llms.txt"
-msgstr ""
+msgstr "Exclude from llms.txt"
 
 #: includes/class-llms-txt-bulk-generator.php:160
 msgid "Excluído do LLMS.txt"
@@ -398,7 +408,7 @@ msgstr ""
 
 #: templates/meta-box.php:252
 msgid "Gerar automaticamente"
-msgstr ""
+msgstr "Generate automatically"
 
 #: includes/class-llms-txt-bulk-generator.php:180
 msgid "Gerar descrição"
@@ -458,7 +468,7 @@ msgstr ""
 
 #: includes/class-llms-txt-admin.php:128
 msgid "Incluir Posts"
-msgstr ""
+msgstr "Include Posts"
 
 #: templates/admin-page.php:250
 msgid "Incluir posts"
@@ -470,7 +480,7 @@ msgstr ""
 
 #: includes/class-llms-txt-admin.php:136
 msgid "Incluir Páginas"
-msgstr ""
+msgstr "Include Pages"
 
 #: templates/admin-page.php:267
 msgid "Incluir páginas"
@@ -505,7 +515,7 @@ msgstr ""
 
 #: includes/class-llms-txt-admin.php:160 templates/admin-page.php:425
 msgid "Integração com IA"
-msgstr ""
+msgstr "AI Integration"
 
 #: templates/admin-page.php:708
 msgid "Links Recomendados - Use nossos links e ajude esse plugin a se manter!"
@@ -534,7 +544,7 @@ msgstr ""
 
 #: templates/admin-page.php:690
 msgid "Mais informações"
-msgstr ""
+msgstr "More information"
 
 #: includes/class-llms-txt-admin.php:730 templates/admin-page.php:484
 msgid "Manual da API OpenAI"
@@ -714,7 +724,7 @@ msgstr ""
 
 #: includes/class-llms-txt-bulk-generator.php:591
 msgid "Resposta inválida da API OpenAI."
-msgstr ""
+msgstr "Invalid OpenAI API response."
 
 #: templates/admin-page.php:323
 msgid "Resumo (excerpt)"
@@ -722,7 +732,7 @@ msgstr "Summary (excerpt)"
 
 #: templates/admin-page.php:629
 msgid "Salvar Configurações"
-msgstr ""
+msgstr "Save Settings"
 
 #: includes/class-llms-txt-admin.php:663
 msgid ""
