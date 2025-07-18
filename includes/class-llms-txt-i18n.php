@@ -53,15 +53,27 @@ class LLMS_Txt_I18n {
 
     /**
      * Carrega os arquivos de tradução
+     * 
+     * Idioma padrão: Português Brasileiro (pt_BR)
+     * Segundo idioma: Inglês Americano (en_US)
      *
      * @since 1.0.0
      */
     public function load_plugin_textdomain() {
-        load_plugin_textdomain(
-            'llms-txt-generator',
-            false,
-            dirname(plugin_basename(LLMS_TXT_GENERATOR_FILE)) . '/languages/'
-        );
+        // Definir português brasileiro como idioma padrão
+        $locale = determine_locale();
+        
+        // Se o locale não for português brasileiro, carregar tradução apropriada
+        if ($locale !== 'pt_BR') {
+            load_plugin_textdomain(
+                'llms-txt-generator',
+                false,
+                dirname(plugin_basename(LLMS_TXT_GENERATOR_FILE)) . '/languages/'
+            );
+        }
+        
+        // Para português brasileiro, as strings já estão no código em português
+        // Não é necessário carregar arquivo de tradução adicional
     }
 
     /**

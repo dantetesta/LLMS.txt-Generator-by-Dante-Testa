@@ -1,0 +1,211 @@
+# LLMS.txt Generator - Tradução Padrão em Português Brasileiro
+# Copyright (C) 2025 Dante Testa
+# This file is distributed under the same license as the LLMS.txt Generator plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: LLMS.txt Generator 2.0.4\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/llms-txt-generator\n"
+"Last-Translator: Dante Testa <contato@dantetesta.com.br>\n"
+"Language-Team: Portuguese (Brazil)\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-07-18 04:49+0000\n"
+"PO-Revision-Date: 2025-07-18 05:08+0000\n"
+"X-Generator: Manual Translation\n"
+"X-Domain: llms-txt-generator\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Loco-Version: 2.8.0; wp-6.8.2; php-8.2.23\n"
+
+#: includes/class-llms-txt-admin.php:45
+msgid "## Projetos\\n\\n- [Projeto A](https://exemplo.com/projeto-a): Descrição do projeto A\\n- [Projeto B](https://exemplo.com/projeto-b): Descrição do projeto B"
+msgstr "## Projetos\\n\\n- [Projeto A](https://exemplo.com/projeto-a): Descrição do projeto A\\n- [Projeto B](https://exemplo.com/projeto-b): Descrição do projeto B"
+
+#: includes/class-llms-txt-meta-box.php:234
+msgid "%d caracteres restantes"
+msgstr "%d caracteres restantes"
+
+#: includes/class-llms-txt-admin.php:178
+msgid "_descricao, _info, _atributos"
+msgstr "_descricao, _info, _atributos"
+
+#: includes/class-llms-txt-admin.php:298
+msgid "A chave da API OpenRouter é válida, mas não tem acesso aos modelos DeepSeek. Verifique sua conta."
+msgstr "A chave da API OpenRouter é válida, mas não tem acesso aos modelos DeepSeek. Verifique sua conta."
+
+#: includes/class-llms-txt-admin.php:295
+msgid "A chave da API parece ser inválida."
+msgstr "A chave da API parece ser inválida."
+
+#: includes/class-llms-txt-meta-box.php:239
+msgid "A descrição deve ter no máximo 150 caracteres."
+msgstr "A descrição deve ter no máximo 150 caracteres."
+
+#: includes/class-llms-txt-meta-box.php:238
+msgid "A descrição deve ter no máximo 350 caracteres."
+msgstr "A descrição deve ter no máximo 350 caracteres."
+
+#: includes/class-llms-txt-admin.php:289
+msgid "A chave da API OpenAI é válida!"
+msgstr "A chave da API OpenAI é válida!"
+
+#: includes/class-llms-txt-admin.php:292
+msgid "A chave da API OpenRouter (DeepSeek) é válida!"
+msgstr "A chave da API OpenRouter (DeepSeek) é válida!"
+
+#: includes/class-llms-txt-bulk-generator.php:145
+msgid "Chave de API da OpenAI não configurada."
+msgstr "Chave de API da OpenAI não configurada."
+
+#: includes/class-llms-txt-bulk-generator.php:148
+msgid "Chave de API do DeepSeek não configurada."
+msgstr "Chave de API do DeepSeek não configurada."
+
+#: includes/class-llms-txt-bulk-generator.php:428
+msgid "Conteúdo vazio. Verifique se o metafield configurado possui valor."
+msgstr "Conteúdo vazio. Verifique se o metafield configurado possui valor."
+
+#: includes/class-llms-txt-i18n.php:79
+msgid "Validando chave..."
+msgstr "Validando chave..."
+
+#: includes/class-llms-txt-i18n.php:80
+msgid "Atualizando arquivo..."
+msgstr "Atualizando arquivo..."
+
+#: includes/class-llms-txt-i18n.php:81
+msgid "Ocorreu um erro. Por favor, tente novamente."
+msgstr "Ocorreu um erro. Por favor, tente novamente."
+
+#: includes/class-llms-txt-i18n.php:82
+msgid "Erro de conexão. Verifique sua internet."
+msgstr "Erro de conexão. Verifique sua internet."
+
+#: includes/class-llms-txt-i18n.php:83
+msgid "Mostrar"
+msgstr "Mostrar"
+
+#: includes/class-llms-txt-i18n.php:84
+msgid "Ocultar"
+msgstr "Ocultar"
+
+#: includes/class-llms-txt-i18n.php:85
+msgid "Arquivo atualizado com sucesso!"
+msgstr "Arquivo atualizado com sucesso!"
+
+#: includes/class-llms-txt-i18n.php:86
+msgid "Erro ao atualizar o arquivo."
+msgstr "Erro ao atualizar o arquivo."
+
+#: includes/class-llms-txt-i18n.php:87
+msgid "Tem certeza que deseja regenerar o arquivo llms.txt? Isso substituirá o arquivo atual."
+msgstr "Tem certeza que deseja regenerar o arquivo llms.txt? Isso substituirá o arquivo atual."
+
+#: includes/class-llms-txt-i18n.php:97
+msgid "ID do post não encontrado"
+msgstr "ID do post não encontrado"
+
+#: includes/class-llms-txt-i18n.php:98
+msgid "Erro ao gerar descrição"
+msgstr "Erro ao gerar descrição"
+
+#: includes/class-llms-txt-i18n.php:99
+msgid "Gerando descrição..."
+msgstr "Gerando descrição..."
+
+#: includes/class-llms-txt-bulk-generator.php:40
+msgid "Gerar descrições LLMS (apenas novos)"
+msgstr "Gerar descrições LLMS (apenas novos)"
+
+#: includes/class-llms-txt-bulk-generator.php:41
+msgid "Gerar descrições LLMS (forçar todos)"
+msgstr "Gerar descrições LLMS (forçar todos)"
+
+#: includes/class-llms-txt-bulk-generator.php:100
+msgid "Erro de segurança: nonce não fornecido."
+msgstr "Erro de segurança: nonce não fornecido."
+
+#: includes/class-llms-txt-bulk-generator.php:105
+msgid "Erro de segurança. Recarregue a página e tente novamente."
+msgstr "Erro de segurança. Recarregue a página e tente novamente."
+
+#: includes/class-llms-txt-bulk-generator.php:110
+msgid "Você não tem permissão para editar este post."
+msgstr "Você não tem permissão para editar este post."
+
+#: includes/class-llms-txt-bulk-generator.php:115
+msgid "Este item está marcado como excluído do LLMS.txt."
+msgstr "Este item está marcado como excluído do LLMS.txt."
+
+#: includes/class-llms-txt-bulk-generator.php:120
+msgid "Descrição já existe, pulando."
+msgstr "Descrição já existe, pulando."
+
+#: includes/admin/admin-page.php:165
+msgid "Fonte de conteúdo para descrições:"
+msgstr "Fonte de conteúdo para descrições:"
+
+#: includes/admin/admin-page.php:169
+msgid "Conteúdo do post"
+msgstr "Conteúdo do post"
+
+#: includes/admin/admin-page.php:170
+msgid "Resumo (excerpt)"
+msgstr "Resumo (excerpt)"
+
+#: includes/admin/admin-page.php:171
+msgid "Campos personalizados"
+msgstr "Campos personalizados"
+
+#: includes/admin/admin-page.php:177
+msgid "Nomes dos campos personalizados (separados por vírgula):"
+msgstr "Nomes dos campos personalizados (separados por vírgula):"
+
+#: includes/admin/admin-page.php:178
+msgid "Ex: _descricao, _peso, _info"
+msgstr "Ex: _descricao, _peso, _info"
+
+#: includes/admin/admin-page.php:179
+msgid "O conteúdo desses campos será concatenado para gerar o contexto da descrição."
+msgstr "O conteúdo desses campos será concatenado para gerar o contexto da descrição."
+
+#: includes/class-llms-txt-file.php:330
+msgid "Sem descrição disponível"
+msgstr "Sem descrição disponível"
+
+#: includes/class-llms-txt-meta-box.php:45
+msgid "LLMS.txt - Descrição LLMS"
+msgstr "LLMS.txt - Descrição LLMS"
+
+#: includes/class-llms-txt-meta-box.php:300
+msgid "Erro de segurança. Por favor, recarregue a página."
+msgstr "Erro de segurança. Por favor, recarregue a página."
+
+#: includes/class-llms-txt-meta-box.php:305
+msgid "Você não tem permissão para realizar esta ação."
+msgstr "Você não tem permissão para realizar esta ação."
+
+#: includes/class-llms-txt-meta-box.php:310
+msgid "Post não encontrado."
+msgstr "Post não encontrado."
+
+#: includes/class-llms-txt-meta-box.php:315
+msgid "Chave da API OpenAI não configurada."
+msgstr "Chave da API OpenAI não configurada."
+
+#: includes/class-llms-txt-meta-box.php:320
+msgid "Chave da API OpenRouter (DeepSeek) não configurada."
+msgstr "Chave da API OpenRouter (DeepSeek) não configurada."
+
+#: includes/class-llms-txt-meta-box.php:325
+msgid "Provedor de API inválido."
+msgstr "Provedor de API inválido."
+
+#: includes/class-llms-txt-meta-box.php:400
+msgid "Descrição técnica gerada com sucesso!"
+msgstr "Descrição técnica gerada com sucesso!"
+
+#: includes/class-llms-txt-meta-box.php:405
+msgid "Erro ao processar a resposta da API."
+msgstr "Erro ao processar a resposta da API."
