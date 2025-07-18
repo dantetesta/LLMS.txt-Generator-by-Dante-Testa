@@ -181,7 +181,7 @@ Se este plugin está ajudando seu site a ter uma melhor interação com IAs, con
 
 ## 📝 Changelog
 
-### 🚀 Versão 2.0.6 (18 de Janeiro 2025)
+### 🚀 Versão 2.0.6 (18 de Julho 2025)
 
 #### 🐛 **Correções Críticas**
 - **Erro Fatal Corrigido**: Resolvido erro `Call to undefined function get_current_screen()` no bulk generator
@@ -196,7 +196,7 @@ Se este plugin está ajudando seu site a ter uma melhor interação com IAs, con
 
 ---
 
-### 🌟 Versão 2.0.5 (17 de Janeiro 2025)
+### 🌟 Versão 2.0.5 (17 de Julho 2025)
 
 #### 🎨 **Interface e Usabilidade**
 - **Layout Responsivo**: Interface ocupa 100% da largura disponível
@@ -211,7 +211,7 @@ Se este plugin está ajudando seu site a ter uma melhor interação com IAs, con
 
 ---
 
-### 🌐 Versão 2.0.4 (16 de Janeiro 2025)
+### 🌐 Versão 2.0.4 (16 de Julho 2025)
 
 #### 🌍 **Internacionalização**
 - **Tradução Completa**: Suporte total ao inglês americano (en_US)
