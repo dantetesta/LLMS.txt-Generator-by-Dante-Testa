@@ -1,11 +1,82 @@
 /**
  * Estilos para a meta box do LLMS.txt Generator
- * Nota: A maioria dos estilos é fornecida pelo Tailwind CSS via CDN
+ * Implementação isolada para evitar conflitos com o editor Gutenberg
  *
  * @package LLMS_Txt_Generator
  * @since 1.0.0
+ * @updated 2.0.1 Isolamento do Tailwind CSS
  * @author Dante Testa (https://dantetesta.com.br)
  */
+
+/* Reset para conteúdos dentro do wrapper da meta box */
+.llms-txt-wrapper * {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    box-sizing: border-box;
+}
+
+/* Estilos básicos para o container da meta box */
+.llms-txt-wrapper {
+    /* Garantir que nada interfira no editor Gutenberg */
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* Estilos para os elementos da meta box */
+.llms-txt-meta-box textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.llms-txt-meta-box label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.llms-txt-meta-box button {
+    background: #3582c4;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.llms-txt-meta-box button:hover {
+    background: #2271b1;
+}
+
+.llms-txt-meta-box button:disabled {
+    background: #a7aaad;
+    cursor: not-allowed;
+}
+
+/* Animação para o spinner de carregamento */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.llms-txt-loading-spinner {
+    display: inline-block;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 2px solid #3582c4;
+    width: 16px;
+    height: 16px;
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
+    vertical-align: middle;
+}
 
 /* Estilos adicionais para compatibilidade com o editor do WordPress */
 .llms-txt-meta-box {
@@ -30,6 +101,66 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+/* Estilos específicos para o switcher - início */
+.llms-txt-wrapper .switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 24px;
+    margin-right: 0.5rem;
+}
+
+.llms-txt-wrapper .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.llms-txt-wrapper .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.llms-txt-wrapper .slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+.llms-txt-wrapper input:checked + .slider {
+    background-color: #2196F3;
+}
+
+.llms-txt-wrapper input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+.llms-txt-wrapper input:checked + .slider:before {
+    transform: translateX(24px);
+}
+
+.llms-txt-wrapper .slider.round {
+    border-radius: 34px;
+}
+
+.llms-txt-wrapper .slider.round:before {
+    border-radius: 50%;
+}
+/* Estilos específicos para o switcher - fim */
 
 /* Ajustes para o tema escuro do WordPress */
 .is-dark-theme .llms-txt-meta-box .bg-white {

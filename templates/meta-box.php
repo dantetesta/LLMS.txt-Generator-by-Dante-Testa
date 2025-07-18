@@ -5,6 +5,7 @@
  * @package LLMS_Txt_Generator
  * @since 1.0.0
  * @updated 1.1.0 Adicionado suporte para DeepSeek V3
+ * @updated 2.0.2 Removido Tailwind, usando CSS básico
  * @author Dante Testa (https://dantetesta.com.br)
  */
 
@@ -22,11 +23,11 @@ $has_api_key = false;
 if ($api_provider === 'openai') {
     $has_api_key = isset($settings['openai_api_key']) && !empty($settings['openai_api_key']);
     $provider_name = 'OpenAI';
-    $provider_color = 'bg-green-500';
+    $provider_color = '#10a37f'; // cor verde do OpenAI
 } elseif ($api_provider === 'deepseek') {
     $has_api_key = isset($settings['deepseek_api_key']) && !empty($settings['deepseek_api_key']);
     $provider_name = 'DeepSeek V3';
-    $provider_color = 'bg-blue-500';
+    $provider_color = '#3b82f6'; // cor azul do DeepSeek
 }
 
 // Detectar se estamos usando o editor clássico
@@ -199,89 +200,88 @@ $editor_class = $using_classic_editor ? 'classic-editor' : 'block-editor';
     }
 </style>
 
-<div class="llms-txt-meta-box <?php echo $editor_class; ?>">
-    <div class="bg-white p-4 rounded-lg">
-        <div class="mb-4 flex items-center justify-between" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+<div class="llms-txt-wrapper llms-txt-meta-box <?php echo $editor_class; ?>">
+    <!-- Wrapper para isolar os estilos -->
+    <div style="background-color: #fff; padding: 15px; border-radius: 4px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
             <div style="flex: 1;">
-                <label for="llms_txt_description" class="block text-sm font-medium text-gray-700 mb-1" style="display: block; font-weight: 500; margin-bottom: 0.25rem; color: #4b5563;">
+                <label for="llms_txt_description" style="display: block; font-weight: 500; margin-bottom: 5px; color: #333;">
                     <?php _e('Descrição para IAs', 'llms-txt-generator'); ?>
                 </label>
-                <p class="text-xs text-gray-500 mb-2" style="font-size: 0.75rem; color: #6b7280; margin-bottom: 0.5rem;">
+                <p style="font-size: 12px; color: #666; margin-bottom: 8px;">
                     <?php _e('Adicione uma descrição deste conteúdo para ser exibida no arquivo llms.txt.', 'llms-txt-generator'); ?>
                 </p>
             </div>
-            <div class="flex items-center" style="display: flex; align-items: center;">
-                <label class="switch relative inline-block w-12 h-6 mr-2" style="position: relative; display: inline-block; width: 48px; height: 24px; margin-right: 0.5rem;">
+            <div style="display: flex; align-items: center;">
+                <label class="switch">
                     <input type="checkbox" id="llms_txt_exclude" name="llms_txt_exclude" value="1" <?php checked('1', get_post_meta($post->ID, '_llms_txt_exclude', true)); ?>>
-                    <span class="slider round" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px;"></span>
+                    <span class="slider round"></span>
                 </label>
-                <label for="llms_txt_exclude" class="text-sm text-gray-700" style="font-size: 0.875rem; color: #4b5563;">
+                <input type="hidden" name="llms_txt_exclude_hidden" value="0"><!-- Campo oculto para garantir que o valor seja enviado mesmo quando desmarcado -->
+                <label for="llms_txt_exclude" style="font-size: 13px; color: #333; margin-left: 5px;">
                     <?php _e('Excluir do llms.txt', 'llms-txt-generator'); ?>
                 </label>
-                <span class="ml-1 group relative help-icon" style="margin-left: 0.25rem; position: relative; display: inline-block;">
-                    <svg class="h-4 w-4 text-gray-400 cursor-help" style="height: 1rem; width: 1rem; color: #9ca3af; cursor: help;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <span class="help-icon" style="margin-left: 5px; position: relative; display: inline-block;">
+                    <svg style="height: 16px; width: 16px; color: #777; cursor: help;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
                     </svg>
-                    <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute z-10 -ml-28 mt-2 w-64 bg-black text-white text-xs rounded py-1 px-2 pointer-events-none tooltip" style="position: absolute; z-index: 10; width: 250px; background-color: #000; color: #fff; font-size: 0.75rem; border-radius: 0.25rem; padding: 0.25rem 0.5rem; pointer-events: none; left: -100px;">
+                    <div class="tooltip" style="position: absolute; z-index: 10; width: 250px; background-color: #333; color: #fff; font-size: 12px; border-radius: 4px; padding: 5px 8px; pointer-events: none; left: -100px; opacity: 0; visibility: hidden;">
                         <?php _e('Ative esta opção para não incluir este conteúdo no arquivo llms.txt, tornando-o invisível para IAs.', 'llms-txt-generator'); ?>
                     </div>
                 </span>
             </div>
         </div>
         
-        <div class="mb-2" style="margin-bottom: 0.5rem;">
-            <textarea id="llms_txt_description" name="llms_txt_description" rows="3" maxlength="350" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:shadow-outline resize-y" style="width: 100%; padding: 0.5rem 0.75rem; color: #4b5563; border: 1px solid #e5e7eb; border-radius: 0.375rem; resize: vertical; box-sizing: border-box;"><?php echo esc_textarea($description); ?></textarea>
-            <div class="flex justify-between items-center mt-1 char-count-container" style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.25rem;">
-                <div class="flex items-center" style="display: flex; align-items: center;">
-                    <span id="llms_txt_char_count" class="text-xs text-gray-500" style="font-size: 0.75rem; color: #6b7280;">
+        <div style="margin-bottom: 10px;">
+            <textarea id="llms_txt_description" name="llms_txt_description" rows="3" maxlength="350" style="width: 100%; padding: 8px 10px; color: #333; border: 1px solid #ddd; border-radius: 4px; resize: vertical; box-sizing: border-box;"><?php echo esc_textarea($description); ?></textarea>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 5px;" class="char-count-container">
+                <div style="display: flex; align-items: center;">
+                    <span id="llms_txt_char_count" style="font-size: 12px; color: #666;">
                         <?php printf(__('%d caracteres restantes', 'llms-txt-generator'), 350 - mb_strlen($description)); ?>
                     </span>
                     
                     <?php if ($has_api_key): ?>
-                    <span id="llms_txt_provider_badge" class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium <?php echo $provider_color; ?> text-white provider-badge <?php echo $api_provider === 'deepseek' ? 'blue-badge' : 'green-badge'; ?>" style="margin-left: 0.5rem; display: inline-flex; align-items: center; padding: 0 0.5rem; border-radius: 0.25rem; font-size: 0.75rem; font-weight: 500; color: white;">
+                    <span id="llms_txt_provider_badge" style="margin-left: 8px; display: inline-block; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold; background-color: <?php echo $provider_color; ?>; color: white;" class="provider-badge <?php echo $api_provider === 'deepseek' ? 'blue-badge' : 'green-badge'; ?>">
                         <?php echo $provider_name; ?>
                     </span>
                     <?php endif; ?>
                 </div>
                 
                 <?php if ($has_api_key): ?>
-                    <button type="button" id="llms_txt_generate_description" class="<?php echo $provider_color; ?> hover:opacity-90 text-white text-xs font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline transition duration-150 ease-in-out generate-button" style="background-color: <?php echo $api_provider === 'deepseek' ? '#3b82f6' : '#10b981'; ?>; color: white; font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.5rem; border-radius: 0.25rem; border: none; cursor: pointer;">
+                    <button type="button" id="llms_txt_generate_description" style="background-color: <?php echo $provider_color; ?>; color: white; font-size: 12px; font-weight: bold; padding: 4px 8px; border-radius: 4px; border: none; cursor: pointer;" class="generate-button">
                         <?php _e('Gerar automaticamente', 'llms-txt-generator'); ?>
                     </button>
                 <?php endif; ?>
             </div>
             
-            <p class="text-xs text-gray-500 mb-0" style="font-size: 0.75rem; color: #6b7280; margin-bottom: 0;">
+            <p style="font-size: 12px; color: #666; margin-bottom: 0; margin-top: 5px;">
                 <?php _e('Esta descrição será exibida junto ao link para este conteúdo no arquivo llms.txt.', 'llms-txt-generator'); ?>
             </p>
         </div>
         
-        <div id="llms_txt_feedback" class="mt-3 hidden">
-            <div id="llms_txt_loading" class="hidden">
-                <div class="flex items-center">
-                    <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    <span class="text-sm text-blue-500"><?php _e('Gerando descrição...', 'llms-txt-generator'); ?></span>
+        <div id="llms_txt_feedback" style="margin-top: 15px; display: none;">
+            <div id="llms_txt_loading" style="display: none;">
+                <div style="display: flex; align-items: center;">
+                    <div class="llms-txt-loading-spinner"></div>
+                    <span style="font-size: 13px; color: #3582c4;"><?php _e('Gerando descrição...', 'llms-txt-generator'); ?></span>
                 </div>
             </div>
             
-            <div id="llms_txt_success" class="hidden">
-                <div class="flex items-center">
-                    <svg class="h-4 w-4 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <div id="llms_txt_success" style="display: none;">
+                <div style="display: flex; align-items: center;">
+                    <svg style="margin-right: 8px; height: 16px; width: 16px; color: #00a32a;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                     </svg>
-                    <span class="text-sm text-green-500"><?php _e('Descrição gerada com sucesso!', 'llms-txt-generator'); ?></span>
+                    <span style="font-size: 13px; color: #00a32a;"><?php _e('Descrição gerada com sucesso!', 'llms-txt-generator'); ?></span>
                 </div>
             </div>
             
-            <div id="llms_txt_error" class="hidden">
-                <div class="flex items-center">
-                    <svg class="h-4 w-4 text-red-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <div id="llms_txt_error" style="display: none;">
+                <div style="display: flex; align-items: center;">
+                    <svg style="margin-right: 8px; height: 16px; width: 16px; color: #d63638;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
                     </svg>
-                    <span id="llms_txt_error_message" class="text-sm text-red-500"></span>
+                    <span id="llms_txt_error_message" style="font-size: 13px; color: #d63638;"></span>
                 </div>
             </div>
         </div>

@@ -103,18 +103,16 @@
             
             $charCount.text(llms_txt_meta_box.characters_remaining.replace('%d', remaining));
             
-            // Adicionar classe de aviso se estiver próximo do limite
+            // Adicionar estilo de aviso se estiver próximo do limite
             if (remaining < 20) {
-                $charCount.removeClass('text-gray-500').addClass('text-orange-500');
+                $charCount.css('color', '#f97316'); // Laranja
             } else {
-                $charCount.removeClass('text-orange-500').addClass('text-gray-500');
+                $charCount.css('color', '#6b7280'); // Cinza
             }
             
-            // Adicionar classe de erro se ultrapassar o limite
+            // Adicionar estilo de erro se ultrapassar o limite
             if (remaining < 0) {
-                $charCount.removeClass('text-orange-500').addClass('text-red-500');
-            } else {
-                $charCount.removeClass('text-red-500');
+                $charCount.css('color', '#dc2626'); // Vermelho
             }
         }
 
@@ -174,29 +172,29 @@
          */
         function showFeedback(type, message) {
             // Esconder todos os feedbacks
-            $loading.addClass('hidden');
-            $success.addClass('hidden');
-            $error.addClass('hidden');
+            $loading.hide();
+            $success.hide();
+            $error.hide();
             
             // Mostrar feedback específico
             if (type === 'loading') {
-                $loading.removeClass('hidden');
+                $loading.show();
             } else if (type === 'success') {
-                $success.removeClass('hidden');
+                $success.show();
             } else if (type === 'error') {
                 $errorMessage.text(message);
-                $error.removeClass('hidden');
+                $error.show();
             }
             
             // Mostrar container de feedback
-            $feedback.removeClass('hidden');
+            $feedback.show();
         }
 
         /**
          * Esconde todos os feedbacks
          */
         function hideFeedback() {
-            $feedback.addClass('hidden');
+            $feedback.hide();
         }
 
         // Inicializar contador de caracteres

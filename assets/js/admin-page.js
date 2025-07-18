@@ -13,6 +13,12 @@ document.addEventListener('DOMContentLoaded', function() {
     toastContainer.style.transform = 'translateX(110%)';
     document.body.appendChild(toastContainer);
     
+    // Verificar se as configurações foram salvas (usando PHP para passar essa informação)
+    if (typeof llms_txt_admin !== 'undefined' && llms_txt_admin.settings_updated === 'yes') {
+        // Exibir notificação de sucesso
+        showToast('Configurações salvas com sucesso!', 'success');
+    }
+    
     // Função para mostrar notificações toast
     window.showToast = function(message, type = 'info') {
         const container = document.getElementById('llms-txt-toast-container');
@@ -22,63 +28,57 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Criar o toast
         const toast = document.createElement('div');
-        toast.className = `flex items-center p-3 mb-2 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out translate-x-full max-w-xs ${
-            type === 'success' ? 'bg-green-500 text-white' : 
-            type === 'error' ? 'bg-red-500 text-white' : 
-            'bg-blue-500 text-white'
-        }`;
+        toast.className = `llms-toast llms-toast-${type}`;
         
-        // Ícone
-        const icon = document.createElement('div');
-        icon.className = 'mr-2 flex-shrink-0';
+        // Estrutura do toast
+        let iconSvg;
         if (type === 'success') {
-            icon.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+            iconSvg = '<svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
         } else if (type === 'error') {
-            icon.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+            iconSvg = '<svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
         } else {
-            icon.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>';
+            iconSvg = '<svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>';
         }
-        toast.appendChild(icon);
         
-        // Mensagem
-        const text = document.createElement('div');
-        text.className = 'text-sm font-medium';
-        text.textContent = message;
-        toast.appendChild(text);
+        // Criar a estrutura HTML do toast
+        toast.innerHTML = `
+            <div class="llms-toast-content">
+                <div class="llms-toast-icon">${iconSvg}</div>
+                <div class="llms-toast-message">${message}</div>
+            </div>
+            <button class="llms-toast-close" aria-label="Fechar">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        `;
         
-        // Botão fechar
-        const closeBtn = document.createElement('button');
-        closeBtn.className = 'ml-auto text-white hover:text-gray-200';
-        closeBtn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
-        closeBtn.addEventListener('click', function() {
-            toast.style.opacity = '0';
-            setTimeout(() => {
-                if (toast.parentNode === container) {
-                    container.removeChild(toast);
-                }
-                
-                // Esconder o container se não houver mais toasts
-                if (container.children.length === 0) {
-                    container.style.transform = 'translateX(110%)';
-                }
-            }, 300);
+        // Adicionar evento ao botão fechar
+        toast.querySelector('.llms-toast-close').addEventListener('click', function() {
+            closeToast(toast);
         });
-        toast.appendChild(closeBtn);
         
-        // Adicionar ao container
+        // Adicionar ao container e iniciar animação
         container.appendChild(toast);
         
-        // Animação de entrada para o toast individual
+        // Pequeno delay para garantir que o navegador aplique a animação
         setTimeout(() => {
+            toast.style.opacity = '1';
             toast.style.transform = 'translateX(0)';
         }, 10);
         
-        // Remover após 5 segundos
+        // Fechar automaticamente após 4 segundos
         setTimeout(() => {
-            toast.style.opacity = '0';
+            closeToast(toast);
+        }, 4000);
+        
+        // Função auxiliar para fechar o toast
+        function closeToast(toastEl) {
+            toastEl.style.animation = 'llms-toast-out 0.3s forwards';
+            
             setTimeout(() => {
-                if (toast.parentNode === container) {
-                    container.removeChild(toast);
+                if (toastEl.parentNode === container) {
+                    container.removeChild(toastEl);
                 }
                 
                 // Esconder o container se não houver mais toasts
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     container.style.transform = 'translateX(110%)';
                 }
             }, 300);
-        }, 5000);
+        }
     };
     
     // Função para alternar visibilidade dos campos de API com base no provedor selecionado

@@ -14,12 +14,17 @@
 }
 
 .llms-txt-icon-success {
-    color: #46b450;
+    color: #00a32a;
     font-size: 1.5em;
 }
 
 .llms-txt-icon-error {
-    color: #dc3232;
+    color: #d63638;
+    font-size: 1.5em;
+}
+
+.llms-txt-icon-skipped {
+    color: #3582c4;
     font-size: 1.5em;
 }
 

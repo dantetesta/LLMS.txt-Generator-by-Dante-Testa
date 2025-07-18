@@ -179,7 +179,8 @@ class LLMS_Txt_Bulk_Generator {
      * @return array Ações modificadas
      */
     public function add_bulk_action($actions) {
-        $actions['llms_txt_generate_descriptions'] = __('Gerar descrições LLMS', 'llms-txt-generator');
+        $actions['llms_txt_generate_descriptions'] = __('Gerar descrições LLMS (apenas novos)', 'llms-txt-generator');
+        $actions['llms_txt_regenerate_all_descriptions'] = __('Gerar descrições LLMS (forçar todos)', 'llms-txt-generator');
         return $actions;
     }
     
@@ -191,44 +192,61 @@ class LLMS_Txt_Bulk_Generator {
      * @return string URL de redirecionamento modificada
      */
     public function handle_bulk_redirect($location, $status) {
-        // Verificar se estamos em uma página de edição de posts (admin)
-        if (!is_admin() || !isset($_REQUEST['post_type'])) {
+        // Verificar se estamos em uma listagem de post types
+        $screen = get_current_screen();
+        if (!$screen || !in_array($screen->base, array('edit', 'edit-tags'))) {
             return $location;
         }
         
-        // Verificar se o tipo de post está habilitado para este plugin
-        $current_post_type = isset($_REQUEST['post_type']) ? sanitize_text_field($_REQUEST['post_type']) : 'post';
-        if (!in_array($current_post_type, $this->post_types)) {
+        // Verificar se o post type é um dos suportados pelo plugin
+        $post_type = $screen->post_type;
+        if (!in_array($post_type, $this->post_types)) {
             return $location;
         }
         
-        // Verificar se é uma ação em massa
-        if (!isset($_REQUEST['action']) || $_REQUEST['action'] !== 'llms_txt_generate_descriptions') {
-            if (!isset($_REQUEST['action2']) || $_REQUEST['action2'] !== 'llms_txt_generate_descriptions') {
-                return $location;
+        // Verificar qual ação foi selecionada
+        $force_regenerate = false;
+        
+        // Verificar primeira ação (ação principal)
+        if (isset($_REQUEST['action'])) {
+            if ($_REQUEST['action'] === 'llms_txt_generate_descriptions') {
+                $force_regenerate = false;
+            } elseif ($_REQUEST['action'] === 'llms_txt_regenerate_all_descriptions') {
+                $force_regenerate = true;
+            } else {
+                return $location; // Não é uma ação nossa
             }
+        } 
+        // Verificar segunda ação (ação do menu de baixo)
+        elseif (isset($_REQUEST['action2'])) {
+            if ($_REQUEST['action2'] === 'llms_txt_generate_descriptions') {
+                $force_regenerate = false;
+            } elseif ($_REQUEST['action2'] === 'llms_txt_regenerate_all_descriptions') {
+                $force_regenerate = true;
+            } else {
+                return $location; // Não é uma ação nossa
+            }
+        } else {
+            return $location; // Nenhuma ação definida
         }
-
-        // Obter os IDs dos posts selecionados
-        $post_ids = array();
         
-        // Posts podem vir como array (checkbox múltiplos) ou como ID único
-        if (isset($_REQUEST['post']) && !empty($_REQUEST['post'])) {
-            $post_ids = is_array($_REQUEST['post']) ? $_REQUEST['post'] : array($_REQUEST['post']);
+        // Obter IDs dos posts selecionados
+        $post_ids = isset($_REQUEST['post']) ? (array) $_REQUEST['post'] : array();
+        
+        // Se não houver posts selecionados, retornar com erro
+        if (empty($post_ids)) {
+            return add_query_arg('llms_txt_bulk_error', 'no_posts', $location);
         }
         
-        // Limitar a 500 itens por vez para evitar problemas de timeout e memória
+        // Salvar a fila para processamento e o modo de operação
         if (!empty($post_ids)) {
-            $post_ids = array_slice($post_ids, 0, 500);
-            
-            // Salvar a lista de post IDs na opção para processamento assíncrono
             update_option('llms_txt_bulk_queue', $post_ids);
+            update_option('llms_txt_bulk_force_regenerate', $force_regenerate);
             
-            // Adicionar flag para iniciar o processamento na página de listagem
+            // Redirecionar para a página com parâmetro para iniciar processamento
             return add_query_arg('llms_txt_bulk_process', 'start', $location);
         }
         
-        // Se não há posts selecionados
         return add_query_arg('llms_txt_bulk_error', 'no_posts', $location);
     }
     
@@ -249,6 +267,9 @@ class LLMS_Txt_Bulk_Generator {
             return;
         }
         
+        // Verificar se há mensagem de erro na URL
+        $error = isset($_GET['llms_txt_bulk_error']) ? sanitize_text_field($_GET['llms_txt_bulk_error']) : false;
+        
         // Enfileirar estilos
         wp_enqueue_style(
             'llms-txt-bulk-generator',
@@ -266,69 +287,64 @@ class LLMS_Txt_Bulk_Generator {
             true
         );
         
-        // Localização para admin columns
+        // Adicionar localização para o script de colunas administrativas
         wp_localize_script('llms-txt-admin-columns', 'llmsTxtAdmin', array(
             'ajaxUrl' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('llms_txt_bulk_process'),
             'generateText' => __('Gerando...', 'llms-txt-generator'),
             'successText' => __('Descrição gerada com sucesso', 'llms-txt-generator'),
-            'errorText' => __('Erro ao gerar descrição', 'llms-txt-generator')
+            'errorText' => __('Erro ao gerar descrição', 'llms-txt-generator'),
+            'confirmRegenerate' => __('Deseja realmente regenerar a descrição deste item?', 'llms-txt-generator')
         ));
         
-        // Verificar se há um processo em massa para iniciar
-        $bulk_process = isset($_GET['llms_txt_bulk_process']) ? sanitize_text_field($_GET['llms_txt_bulk_process']) : '';
+        // Enfileirar script para processamento em massa
+        wp_enqueue_script(
+            'llms-txt-bulk-processor',
+            LLMS_TXT_GENERATOR_URL . 'assets/js/bulk-processor.js',
+            array('jquery'),
+            LLMS_TXT_GENERATOR_VERSION,
+            true
+        );
         
-        if ($bulk_process === 'start') {
-            // Enfileirar script de processamento em massa
-            wp_enqueue_script(
-                'llms-txt-bulk-processor',
-                LLMS_TXT_GENERATOR_URL . 'assets/js/bulk-processor.js',
-                array('jquery'),
-                LLMS_TXT_GENERATOR_VERSION,
-                true
-            );
+        // Obter o modo de operação (forçar regeneração ou apenas novos)
+        $force_regenerate = get_option('llms_txt_bulk_force_regenerate', false);
+        
+        // Localização para processador em massa
+        wp_localize_script('llms-txt-bulk-processor', 'llmsTxtBulk', array(
+            'ajaxUrl' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('llms_txt_bulk_process'),
+            'processingTitle' => $force_regenerate ? 
+                __('Regenerando todas as descrições LLMS', 'llms-txt-generator') : 
+                __('Gerando descrições LLMS faltantes', 'llms-txt-generator'),
+            'forceRegenerate' => $force_regenerate,
+            'successText' => __('Sucesso', 'llms-txt-generator'),
+            'errorText' => __('Erro', 'llms-txt-generator'),
+            'cancelText' => __('Cancelar', 'llms-txt-generator'),
+            'completeText' => __('Processamento concluído', 'llms-txt-generator'),
+            'completeMessage' => __('Todas as descrições foram processadas.', 'llms-txt-generator'),
+            'skipExistingText' => __('Pulado (já existente)', 'llms-txt-generator')
+        ));
+        
+        // Iniciar processamento quando a página carregar
+        $queue = get_option('llms_txt_bulk_queue', array());
+        
+        if (!empty($queue)) {
+            // Converter para JSON para passar para o JavaScript
+            $queue_json = json_encode($queue);
             
-            // Localização para processador em massa
-            wp_localize_script('llms-txt-bulk-processor', 'llmsTxtBulk', array(
-                'ajaxUrl' => admin_url('admin-ajax.php'),
-                'nonce' => wp_create_nonce('llms_txt_bulk_process'),
-                'processingTitle' => __('Gerando descrições LLMS', 'llms-txt-generator'),
-                'completedTitle' => __('Processamento concluído', 'llms-txt-generator'),
-                'cancelledTitle' => __('Processamento cancelado', 'llms-txt-generator'),
-                'successText' => __('Sucesso', 'llms-txt-generator'),
-                'errorText' => __('Erros', 'llms-txt-generator'),
-                'cancelText' => __('Cancelar', 'llms-txt-generator'),
-                'closeText' => __('Fechar', 'llms-txt-generator'),
-                'delayMessage' => __('Pausa de 30 segundos para evitar bloqueio de API', 'llms-txt-generator'),
-                'isListingPage' => true
-            ));
+            // Registrar script inline para iniciar o processamento
+            wp_add_inline_script('llms-txt-bulk-processor', "
+                jQuery(document).ready(function($) {
+                    setTimeout(function() {
+                        $(document).trigger('llms_txt_init_bulk_process', [" . $queue_json . "]);
+                    }, 500);
+                });
+            ");
             
-            // Adicionar script inline para iniciar o processamento
-            $queue = get_option('llms_txt_bulk_queue', array());
-            
-            if (!empty($queue)) {
-                // Garantir que todos os IDs sejam inteiros para evitar problemas de formatação
-                $queue = array_map('intval', $queue);
-                $queue_json = json_encode($queue);
-                
-                // Registrar script com um ID para debugging
-                wp_add_inline_script('llms-txt-bulk-processor', "
-                    console.log('Iniciando processamento em massa LLMS.txt');
-                    console.log('Posts na fila: " . count($queue) . "');
-                    jQuery(document).ready(function($) {
-                        // Trigger com delay para garantir que tudo esteja carregado
-                        setTimeout(function() {
-                            $(document).trigger('llms_txt_init_bulk_process', [" . $queue_json . "]);
-                        }, 500);
-                    });
-                ");
-                
-                // Limpar a fila após iniciar o processamento
-                delete_option('llms_txt_bulk_queue');
-            }
+            // Limpar a fila e o modo após iniciar o processamento
+            delete_option('llms_txt_bulk_queue');
+            delete_option('llms_txt_bulk_force_regenerate');
         }
-        
-        // Mostrar notificação de erro, se aplicável
-        $error = isset($_GET['llms_txt_bulk_error']) ? sanitize_text_field($_GET['llms_txt_bulk_error']) : '';
         
         if ($error) {
             $error_message = '';
@@ -354,6 +370,7 @@ class LLMS_Txt_Bulk_Generator {
         // Verificar nonce e permissões
         $post_id = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
         $is_bulk = isset($_POST['is_bulk']) && $_POST['is_bulk'];
+        $force_regenerate = isset($_POST['force_regenerate']) && $_POST['force_regenerate'];
         
         // Verificar nonce - usando verificador diferente para bulk vs individual
         if (!isset($_POST['nonce'])) {
@@ -384,6 +401,19 @@ class LLMS_Txt_Bulk_Generator {
             wp_send_json_error(array('message' => __('Este item está marcado como excluído do LLMS.txt.', 'llms-txt-generator')));
         }
         
+        // Verificar se já existe uma descrição e se não estamos forçando regeneração
+        if (!$force_regenerate && $is_bulk) {
+            $existing_description = get_post_meta($post_id, '_llms_txt_description', true);
+            if (!empty($existing_description)) {
+                wp_send_json_success(array(
+                    'message' => __('Descrição já existe, pulando.', 'llms-txt-generator'),
+                    'description' => $existing_description,
+                    'is_bulk' => $is_bulk,
+                    'skipped' => true
+                ));
+            }
+        }
+        
         // Gerar descrição técnica
         $description = $this->generate_technical_description($post);
         
@@ -399,7 +429,8 @@ class LLMS_Txt_Bulk_Generator {
         wp_send_json_success(array(
             'message' => __('Descrição técnica gerada com sucesso.', 'llms-txt-generator'),
             'description' => $description,
-            'is_bulk' => $is_bulk
+            'is_bulk' => $is_bulk,
+            'skipped' => false
         ));
     }
     

@@ -19,19 +19,126 @@ $file_manager = LLMS_Txt_File::get_instance();
 $post_types = $admin->get_available_post_types();
 ?>
 
+<!-- Carregar Tailwind CSS diretamente como fallback -->
+<script src="https://cdn.tailwindcss.com"></script>
+
 <style>
     /* Oculta a mensagem "Thank you for creating with WordPress" */
     #wpfooter {
         display: none !important;
     }
     
-    /* Também oculta qualquer texto flutuante no meio da tela que possa ser essa mensagem */
-    .update-nag, #message {
+    /* Oculta todas as notificações e alertas do WordPress */
+    .update-nag, 
+    #message, 
+    .notice, 
+    .error, 
+    .updated, 
+    .settings-error,
+    .update-message,
+    .notice-warning,
+    .notice-error,
+    .notice-info,
+    .notice-success,
+    #setting-error-settings_updated,
+    .rs-update-notice-wrap,
+    #wpbody-content > .error,
+    #wpbody-content > .updated,
+    #wpbody-content > .update-nag,
+    #wpbody-content > .notice,
+    .wp-header-end + div:not(.wrap),
+    /* Elementor e outros plugins */
+    .elementor-message,
+    .elementor-alert,
+    .elementor-panel-alert,
+    [id*="elementor"],
+    [class*="elementor-"] .notice,
+    .e-notice,
+    /* Qualquer outro alerta de plugins */
+    [class*="-notice"],
+    [id*="-notice"],
+    .toplevel_page_elementor div.notice,
+    div.wp-pointer-content,
+    .wp-pointer-buttons,
+    .wp-pointer {
         display: none !important;
+    }
+    
+    /* Garantir que apenas nossa página de administração seja exibida */
+    .llms-admin-page {
+        margin-top: 20px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    /* Esconder até os ponteiros e tooltips */
+    .wp-pointer {
+        visibility: hidden !important;
+        opacity: 0 !important;
+    }
+    
+    /* Estilos básicos de fallback caso o Tailwind não carregue */
+    .llms-txt-admin { width: 100% !important; max-width: none !important; margin: 0 !important; }
+    .flex { display: flex !important; }
+    .items-center { align-items: center !important; }
+    .justify-between { justify-content: space-between !important; }
+    .bg-white { background-color: #ffffff !important; }
+    .text-2xl { font-size: 1.5rem !important; }
+    .font-bold { font-weight: bold !important; }
+    .mb-6 { margin-bottom: 1.5rem !important; }
+    .p-6 { padding: 1.5rem !important; }
+    .rounded-lg { border-radius: 0.5rem !important; }
+    .border { border: 1px solid #e5e7eb !important; }
+    .shadow-sm { box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important; }
+    .text-gray-800 { color: #1f2937 !important; }
+    .text-gray-600 { color: #4b5563 !important; }
+    .space-x-2 > * + * { margin-left: 0.5rem !important; }
+    .inline-flex { display: inline-flex !important; }
+    .bg-blue-600 { background-color: #2563eb !important; }
+    .text-white { color: #ffffff !important; }
+    .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem !important; }
+    .px-4 { padding-left: 1rem; padding-right: 1rem !important; }
+    .rounded-md { border-radius: 0.375rem !important; }
+    .bg-yellow-500 { background-color: #eab308 !important; }
+    .hover\:bg-yellow-600:hover { background-color: #ca8a04 !important; }
+    .hover\:bg-blue-100:hover { background-color: #dbeafe !important; }
+    .transition { transition: all 0.15s ease-in-out !important; }
+    .grid { display: grid !important; }
+    .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)) !important; }
+    .gap-6 { gap: 1.5rem !important; }
+    .col-span-2 { grid-column: span 2 / span 2 !important; }
+    .overflow-hidden { overflow: hidden !important; }
+    .border-gray-200 { border-color: #e5e7eb !important; }
+    .bg-gray-50 { background-color: #f9fafb !important; }
+    .border-b { border-bottom-width: 1px !important; }
+    .text-lg { font-size: 1.125rem !important; }
+    .font-medium { font-weight: 500 !important; }
+    .text-sm { font-size: 0.875rem !important; }
+    .mt-1 { margin-top: 0.25rem !important; }
+    .mt-4 { margin-top: 1rem !important; }
+    .mt-6 { margin-top: 1.5rem !important; }
+    .w-full { width: 100% !important; }
+    .h-5 { height: 1.25rem !important; }
+    .w-5 { width: 1.25rem !important; }
+    .mr-2 { margin-right: 0.5rem !important; }
+    .ml-3 { margin-left: 0.75rem !important; }
+    
+    /* Responsive */
+    @media (min-width: 640px) {
+        .sm\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+    }
+    @media (min-width: 768px) {
+        .md\:flex-row { flex-direction: row !important; }
+        .md\:items-center { align-items: center !important; }
+        .md\:justify-between { justify-content: space-between !important; }
+        .md\:mt-0 { margin-top: 0 !important; }
+        .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+        .md\:col-span-2 { grid-column: span 2 / span 2 !important; }
     }
 </style>
 
-<div class="wrap llms-admin-page">
+<div class="wrap llms-txt-admin llms-admin-page">
+    <!-- Wrapper para isolar os estilos do Tailwind -->
     <!-- Sistema de notificações toast -->
     <div id="llms-toast-container" class="fixed top-4 right-4 z-50 w-80 max-w-full" style="transform: translateX(110%); transition: transform 0.3s ease-in-out;"></div>
     
@@ -58,8 +165,8 @@ $post_types = $admin->get_available_post_types();
         </div>
     </div>
     
+    <!-- Formulário principal de configurações -->
     <div class="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden">
-
         <form method="post" action="options.php">
             <?php settings_fields('llms_txt_settings'); ?>
             
@@ -606,7 +713,7 @@ $post_types = $admin->get_available_post_types();
                             <div class="mb-4">
                                 <h5 class="text-sm font-medium text-gray-700 mb-3 border-b border-gray-100 pb-1"><?php _e('Compras & Hospedagem', 'llms-txt-generator'); ?></h5>
                                 <!-- Links em formato mais respirável -->
-                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
                                     <!-- Amazon -->
                                     <a href="https://amzn.to/4eXEnLS" target="_blank" class="group flex flex-col p-4 hover:bg-blue-50 rounded-lg border border-gray-200 transition-all duration-200 hover:shadow-md">
                                         <div class="flex items-center mb-2">
@@ -664,7 +771,7 @@ $post_types = $admin->get_available_post_types();
                             <!-- Ferramentas WordPress -->
                             <div>
                                 <h5 class="text-sm font-medium text-gray-700 mb-3 border-b border-gray-100 pb-1"><?php _e('Ferramentas WordPress', 'llms-txt-generator'); ?></h5>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
                                     <!-- ZIPWP -->
                                     <a href="https://dantetesta.com.br/zipwp" target="_blank" class="group flex flex-col p-4 hover:bg-blue-50 rounded-lg border border-gray-200 transition-all duration-200 hover:shadow-md">
                                         <div class="flex items-center mb-2">
@@ -772,7 +879,7 @@ $post_types = $admin->get_available_post_types();
                 </div>
                 
                 <!-- Canal do YouTube -->
-                <a href="https://www.youtube.com/@dantetesta" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center bg-white rounded-lg px-6 py-4 shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300 group">
+                <a href="https://www.youtube.com/@dantetesta_" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center bg-white rounded-lg px-6 py-4 shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300 group">
                     <div class="text-red-500 mb-2 group-hover:scale-110 transition-transform duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
@@ -809,8 +916,17 @@ $post_types = $admin->get_available_post_types();
 <script>
     // Localize os dados para o script admin-page.js
     var llms_txt_admin = {
-        nonce: '<?php echo wp_create_nonce("llms_txt_ajax_nonce"); ?>'
+        nonce: '<?php echo wp_create_nonce("llms_txt_ajax_nonce"); ?>',
+        // Verificar se as configurações foram atualizadas recentemente
+        settings_updated: '<?php echo get_transient("llms_txt_settings_updated") ? "yes" : "no"; ?>'
     };
+    
+    <?php 
+    // Limpar o transient após usar
+    if (get_transient("llms_txt_settings_updated")) {
+        delete_transient("llms_txt_settings_updated");
+    }
+    ?>
 </script>
 <script src="<?php echo esc_url(plugin_dir_url(dirname(__FILE__)) . 'assets/js/admin-page.js'); ?>" defer></script>
 

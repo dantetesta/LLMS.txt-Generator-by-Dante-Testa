@@ -17,6 +17,7 @@
     let processedItems = 0;
     let successCount = 0;
     let errorCount = 0;
+    let skippedCount = 0;
     let isCancelled = false;
     
     // Referências da UI
@@ -25,6 +26,7 @@
     let $progressText = null;
     let $successCount = null;
     let $errorCount = null;
+    let $skippedCount = null;
 
     /**
      * Inicializa o processador
@@ -76,7 +78,8 @@
         const $actions = $('<div class="llms-txt-actions"></div>');
         $successCount = $('<span class="llms-txt-success-count">' + llmsTxtBulk.successText + ': 0</span>');
         $errorCount = $('<span class="llms-txt-error-count">' + llmsTxtBulk.errorText + ': 0</span>');
-        const $stats = $('<div class="llms-txt-stats"></div>').append($successCount).append(' | ').append($errorCount);
+        $skippedCount = $('<span class="llms-txt-skipped-count">Pulados: 0</span>');
+        const $stats = $('<div class="llms-txt-stats"></div>').append($successCount).append(' | ').append($errorCount).append(' | ').append($skippedCount);
         
         const $cancelButton = $('<button type="button" class="llms-txt-cancel-button">' + llmsTxtBulk.cancelText + '</button>');
         
@@ -101,14 +104,13 @@
      * Atualiza a barra de progresso
      */
     function updateProgress() {
-        const percentage = Math.floor((processedItems / totalItems) * 100);
-        
-        $progressBar.css('width', percentage + '%');
+        const percent = Math.floor((processedItems / totalItems) * 100);
+        $progressBar.css('width', percent + '%');
         $progressText.text(processedItems + '/' + totalItems);
-        $('.llms-txt-progress-percentage').text(percentage + '%');
-        
+        $('.llms-txt-progress-percentage').text(percent + '%');
         $successCount.text(llmsTxtBulk.successText + ': ' + successCount);
         $errorCount.text(llmsTxtBulk.errorText + ': ' + errorCount);
+        $skippedCount.text('Pulados: ' + skippedCount);
     }
 
     /**
@@ -184,7 +186,8 @@
                 action: 'llms_txt_generate_single_description',
                 post_id: postId,
                 nonce: llmsTxtBulk.nonce,
-                is_bulk: true
+                is_bulk: true,
+                force_regenerate: llmsTxtBulk.forceRegenerate
             },
             beforeSend: function() {
                 console.log('Iniciando requisição para o post ID: ' + postId);
@@ -193,16 +196,30 @@
                 processedItems++;
                 
                 if (response.success) {
-                    successCount++;
-                    
-                    // Atualizar ícone na lista administrativa, se estiver visível
-                    const $statusCell = $('.llms-txt-status[data-post-id="' + postId + '"]');
-                    if ($statusCell.length) {
-                        $statusCell.html('<span class="dashicons dashicons-yes-alt llms-txt-icon-success" title="' + llmsTxtBulk.successText + '"></span>');
+                    // Verificar se o item foi pulado (já tinha descrição)
+                    if (response.data && response.data.skipped) {
+                        skippedCount++;
+                        
+                        // Atualizar ícone na lista administrativa, se estiver visível
+                        const $statusCell = $('.llms-txt-status[data-post-id="' + postId + '"]');
+                        if ($statusCell.length) {
+                            $statusCell.html('<span class="dashicons dashicons-yes llms-txt-icon-skipped" title="' + llmsTxtBulk.skipExistingText + '"></span>');
+                        }
+                        
+                        // Registrar mensagem de pulado no console
+                        console.log('Post ID ' + postId + ': Descrição já existente, pulado');
+                    } else {
+                        successCount++;
+                        
+                        // Atualizar ícone na lista administrativa, se estiver visível
+                        const $statusCell = $('.llms-txt-status[data-post-id="' + postId + '"]');
+                        if ($statusCell.length) {
+                            $statusCell.html('<span class="dashicons dashicons-yes-alt llms-txt-icon-success" title="' + llmsTxtBulk.successText + '"></span>');
+                        }
+                        
+                        // Registrar mensagem de sucesso no console
+                        console.log('Post ID ' + postId + ': Descrição gerada com sucesso');
                     }
-                    
-                    // Registrar mensagem de sucesso no console
-                    console.log('Post ID ' + postId + ': Descrição gerada com sucesso');
                 } else {
                     errorCount++;
                     
@@ -263,19 +280,41 @@
         processingQueue = false;
         
         // Atualizar texto do botão
-        $('.llms-txt-cancel-button').text(llmsTxtBulk.closeText).off('click').on('click', closeNotification);
+        const closeText = llmsTxtBulk.closeText || 'Fechar';
+        $('.llms-txt-cancel-button').text(closeText).off('click').on('click', closeNotification);
         
-        // Atualizar título
-        $('.llms-txt-bulk-notification-title').text(llmsTxtBulk.completedTitle);
+        // Atualizar título e estilo da notificação
+        const completedTitle = llmsTxtBulk.completeText || 'Processamento concluído';
+        $('.llms-txt-bulk-notification-title').text(completedTitle);
         
-        // Se estamos processando na página de lista, atualizar a página após um tempo
-        if (llmsTxtBulk.isListingPage) {
-            setTimeout(() => {
-                // Apenas recarregar se ainda tivermos a notificação aberta
-                if ($notification && $notification.is(':visible')) {
-                    location.reload();
-                }
-            }, 3000);
+        // Adicionar mensagem de conclusão
+        const completeMsg = llmsTxtBulk.completeMessage || 'Todas as descrições foram processadas.';
+        
+        // Remover mensagem anterior se existir
+        $('.llms-txt-complete-message').remove();
+        
+        // Adicionar nova mensagem de conclusão com estilo
+        const $completeMsg = $('<div class="llms-txt-complete-message" style="margin-top: 10px; padding: 10px; background-color: #ecf8f0; border-left: 4px solid #46b450; color: #333;">' + 
+            '<span class="dashicons dashicons-yes-alt" style="color: #46b450; margin-right: 5px;"></span>' + 
+            completeMsg + '</div>');
+        
+        $notification.append($completeMsg);
+        
+        // Mudar a cor da barra de progresso para verde
+        $progressBar.css('background-color', '#46b450');
+        
+        // Se estamos na página de lista, fornecer opção para recarregar
+        const isListPage = typeof llmsTxtBulk.isListingPage !== 'undefined' ? llmsTxtBulk.isListingPage : true;
+        
+        if (isListPage) {
+            // Adicionar botão para recarregar
+            const $reloadBtn = $('<button type="button" class="llms-txt-reload-button button button-primary" style="margin-left: 10px;">Recarregar página</button>');
+            $reloadBtn.on('click', function() {
+                location.reload();
+            });
+            
+            // Adicionar ao container de botões
+            $('.llms-txt-actions').append($reloadBtn);
         }
     }
 

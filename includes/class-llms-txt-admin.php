@@ -299,6 +299,17 @@ class LLMS_Txt_Admin {
             $sanitized['last_updated'] = $settings['last_updated'];
         }
         
+        // Adicionar flag para mostrar mensagem de sucesso
+        add_settings_error(
+            'llms_txt_settings',
+            'settings_updated',
+            __('Configurações salvas com sucesso!', 'llms-txt-generator'),
+            'updated'
+        );
+        
+        // Definir um transient para mostrar um toast personalizado
+        set_transient('llms_txt_settings_updated', true, 30);
+        
         return $sanitized;
     }
 
@@ -324,32 +335,81 @@ class LLMS_Txt_Admin {
      * @param string $hook Hook atual do WordPress
      */
     public function enqueue_scripts($hook) {
-        // Verificar se estamos na página de configurações do plugin
-        if ('settings_page_llms-txt-generator' !== $hook) {
-            return;
+        // Debug para verificar qual página estamos carregando
+        error_log('LLMS Txt Generator: Hook atual: ' . $hook);
+        error_log('LLMS Txt Generator: GET page: ' . (isset($_GET['page']) ? $_GET['page'] : 'não definido'));
+        
+        // Verifica se estamos em qualquer página relacionada ao plugin
+        $is_plugin_page = false;
+        
+        // Detecta todas as páginas relacionadas ao plugin
+        if ('settings_page_llms-txt-generator' === $hook || // Página principal de configurações
+            strpos($hook, 'llms-txt') !== false || // Qualquer página com llms-txt no hook
+            (isset($_GET['page']) && strpos($_GET['page'], 'llms-txt') !== false) || // Parâmetro page na URL
+            (isset($_GET['page']) && $_GET['page'] === 'llms-txt-generator') || // Página específica do plugin
+            (isset($_GET['post_type']) && strpos($_GET['post_type'], 'llms-txt') !== false)) { // Parâmetro post_type
+            $is_plugin_page = true;
+            error_log('LLMS Txt Generator: Página do plugin detectada');
         }
         
-        // Registrar e enfileirar Tailwind CSS via CDN
-        wp_register_style(
+        // Forçar carregamento se estivermos na página de configurações do WordPress
+        if (strpos($hook, 'settings_page') !== false && isset($_GET['page']) && $_GET['page'] === 'llms-txt-generator') {
+            $is_plugin_page = true;
+            error_log('LLMS Txt Generator: Página de configurações detectada via GET parameter');
+        }
+        
+        // TEMPORÁRIO: Forçar carregamento em todas as páginas admin para debug
+        if (is_admin()) {
+            $is_plugin_page = true;
+            error_log('LLMS Txt Generator: Forçando carregamento em todas as páginas admin');
+        }
+        
+        // Sempre carregar os estilos em todas as páginas admin (para garantir que funcione em qualquer contexto)
+        // O CSS está isolado com prefixos então não vai afetar outras partes do admin
+        
+        // Carregar Tailwind CSS via CDN - necessário para as classes utilizadas no template
+        wp_enqueue_style(
             'tailwindcss',
-            'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css',
+            'https://cdn.tailwindcss.com',
             array(),
-            '2.2.19'
+            '3.4.0'
         );
-        wp_enqueue_style('tailwindcss');
+        error_log('LLMS Txt Generator: Tailwind CSS carregado via CDN');
         
-        // Registrar e enfileirar scripts
-        wp_register_script(
-            'llms-txt-admin',
-            plugin_dir_url(dirname(__FILE__)) . 'assets/js/admin-page.js',
-            array('jquery'),
-            LLMS_TXT_GENERATOR_VERSION,
-            true
+        // Enqueue do CSS principal - necessário em todas as páginas do admin
+        wp_enqueue_style(
+            'llms-txt-admin-css',
+            plugin_dir_url(dirname(__FILE__)) . 'assets/css/admin-page.css',
+            array('tailwindcss'), // Dependência do Tailwind
+            LLMS_TXT_GENERATOR_VERSION . '.' . time() // Força recarregar o CSS durante o desenvolvimento
         );
-        wp_enqueue_script('llms-txt-admin');
+        error_log('LLMS Txt Generator: CSS admin carregado');
         
-        // Localizar script via classe de internacionalização
-        LLMS_Txt_I18n::get_instance()->localize_admin_scripts($hook);
+        // Enqueue do CSS para toast notifications
+        wp_enqueue_style(
+            'llms-txt-toast-css',
+            plugin_dir_url(dirname(__FILE__)) . 'assets/css/toast.css',
+            array('tailwindcss'), // Dependência do Tailwind
+            LLMS_TXT_GENERATOR_VERSION . '.' . time() // Força recarregar o CSS durante o desenvolvimento
+        );
+        error_log('LLMS Txt Generator: CSS toast carregado');
+        
+        // Se for página específica do plugin, carregar scripts adicionais
+        if ($is_plugin_page) {
+            // Registrar e enfileirar o JavaScript principal
+            wp_register_script(
+                'llms-txt-admin',
+                plugin_dir_url(dirname(__FILE__)) . 'assets/js/admin-page.js',
+                array('jquery'),
+                LLMS_TXT_GENERATOR_VERSION,
+                true
+            );
+            wp_enqueue_script('llms-txt-admin');
+            error_log('LLMS Txt Generator: JS admin carregado');
+            
+            // Localizar script via classe de internacionalização
+            LLMS_Txt_I18n::get_instance()->localize_admin_scripts($hook);
+        }
     }
 
     /**

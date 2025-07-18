@@ -184,22 +184,20 @@ class LLMS_Txt_Meta_Box {
             return;
         }
         
-        // Registrar e enfileirar Tailwind CSS via CDN
+        // Registrar estilo personalizado para meta box
         wp_register_style(
-            'tailwindcss',
-            'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css',
+            'llms-txt-meta-box-style',
+            plugin_dir_url(dirname(__FILE__)) . 'assets/css/meta-box.css',
             array(),
-            '2.2.19'
+            LLMS_TXT_VERSION
         );
-        wp_enqueue_style('tailwindcss');
         
-        // Adicionar estilos específicos para compatibilidade com editor clássico
-        wp_register_style(
-            'llms-txt-meta-box-compat',
-            false,
-            array('tailwindcss')
-        );
-        wp_enqueue_style('llms-txt-meta-box-compat');
+        // Carregar apenas o estilo da meta box (que já tem o Tailwind como dependência)
+        wp_enqueue_style('llms-txt-meta-box-style');
+        
+        // Adicionar estilo inline para garantir isolamento
+        $wrapper_css = ".editor-styles-wrapper .llms-txt-wrapper { all: revert; }"; // Reset para o editor
+        wp_add_inline_style('llms-txt-meta-box-style', $wrapper_css);
         
         $custom_css = "
             .classic-editor .llms-txt-meta-box {
