@@ -18,7 +18,7 @@
 </p>
 
 <div align="center" style="margin: 40px 0;">
-  <a href="https://github.com/dantetesta/LLMS.txt-Generator-by-Dante-Testa/releases/download/v2.0.6/LLMS.txt-Generator-v2.0.6.zip" style="display:inline-block; text-decoration: none;">
+  <a href="https://github.com/dantetesta/LLMS.txt-Generator-by-Dante-Testa/archive/refs/heads/main.zip" style="display:inline-block; text-decoration: none;">
     <img src="https://img.shields.io/badge/📥%20DOWNLOAD%20PLUGIN-Vers%C3%A3o%202.0.6-2ea44f?style=for-the-badge&logo=wordpress&logoColor=white&labelColor=1e40af" alt="DOWNLOAD PLUGIN" width="400" height="60">
   </a>
   <br>
