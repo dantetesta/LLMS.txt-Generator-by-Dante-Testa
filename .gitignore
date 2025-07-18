@@ -1,0 +1,50 @@
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Arquivos de ambiente e configuração
+.env
+.env.*
+.htaccess
+wp-config.php
+
+# Diretórios e arquivos de desenvolvimento
+node_modules/
+vendor/
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Arquivos de compilação e log
+*.log
+*.sql
+*.zip
+*.tar
+*.gz
+
+# Arquivos temporários
+*~
+.sass-cache
+.tmp
+.phpunit.result.cache
+
+# Arquivos de cache do WordPress
+wp-content/advanced-cache.php
+wp-content/backup-db/
+wp-content/backups/
+wp-content/blogs.dir/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/uploads/
+wp-content/wp-cache-config.php
+wp-content/plugins/hello.php
+
+# Outros
+.svn
+.cvs
+.git/
+*.pyc
+*.swp

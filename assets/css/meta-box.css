@@ -1,0 +1,82 @@
+/**
+ * Estilos para a meta box do LLMS.txt Generator
+ * Nota: A maioria dos estilos é fornecida pelo Tailwind CSS via CDN
+ *
+ * @package LLMS_Txt_Generator
+ * @since 1.0.0
+ * @author Dante Testa (https://dantetesta.com.br)
+ */
+
+/* Estilos adicionais para compatibilidade com o editor do WordPress */
+.llms-txt-meta-box {
+    margin-top: 10px;
+}
+
+/* Ajustes para responsividade em telas muito pequenas */
+@media screen and (max-width: 480px) {
+    .llms-txt-meta-box button {
+        width: 100%;
+        margin-top: 10px;
+        text-align: center;
+    }
+    
+    .llms-txt-meta-box .flex {
+        flex-direction: column;
+    }
+}
+
+/* Animação de carregamento */
+@keyframes llms-txt-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Ajustes para o tema escuro do WordPress */
+.is-dark-theme .llms-txt-meta-box .bg-white {
+    background-color: #32373c;
+    color: #e5e5e5;
+}
+
+.is-dark-theme .llms-txt-meta-box .text-gray-700 {
+    color: #e5e5e5;
+}
+
+.is-dark-theme .llms-txt-meta-box .text-gray-500 {
+    color: #b4b9be;
+}
+
+/* Melhorias de acessibilidade */
+.llms-txt-meta-box button:focus,
+.llms-txt-meta-box input:focus,
+.llms-txt-meta-box textarea:focus {
+    outline: 2px solid #2271b1;
+    outline-offset: 1px;
+}
+
+/* Ajustes para RTL */
+.rtl .llms-txt-meta-box .ml-2 {
+    margin-left: 0;
+    margin-right: 0.5rem;
+}
+
+.rtl .llms-txt-meta-box .mr-2 {
+    margin-right: 0;
+    margin-left: 0.5rem;
+}
+
+/* Compatibilidade com o editor de blocos */
+.block-editor-page .llms-txt-meta-box {
+    padding: 16px;
+}
+
+/* Ajustes para dispositivos móveis - mobile first */
+.llms-txt-meta-box textarea {
+    min-height: 80px;
+    font-size: 14px;
+}
+
+@media screen and (min-width: 768px) {
+    .llms-txt-meta-box textarea {
+        min-height: 60px;
+    }
+}

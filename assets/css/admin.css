@@ -1,0 +1,61 @@
+/**
+ * Estilos para a página de administração do LLMS.txt Generator
+ * Nota: A maioria dos estilos é fornecida pelo Tailwind CSS via CDN
+ *
+ * @package LLMS_Txt_Generator
+ * @since 1.0.0
+ * @author Dante Testa (https://dantetesta.com.br)
+ */
+
+/* Estilos adicionais para compatibilidade com o admin do WordPress */
+.llms-txt-admin-page .notice {
+    margin: 20px 0;
+}
+
+/* Ajustes para responsividade em telas muito pequenas */
+@media screen and (max-width: 480px) {
+    .llms-txt-admin-page .button {
+        width: 100%;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+}
+
+/* Animação de carregamento */
+@keyframes llms-txt-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Ajustes para o tema escuro do WordPress */
+.admin-color-dark .llms-txt-admin-page .bg-white {
+    background-color: #32373c;
+    color: #e5e5e5;
+}
+
+.admin-color-dark .llms-txt-admin-page .text-gray-700 {
+    color: #e5e5e5;
+}
+
+.admin-color-dark .llms-txt-admin-page .text-gray-500 {
+    color: #b4b9be;
+}
+
+/* Melhorias de acessibilidade */
+.llms-txt-admin-page button:focus,
+.llms-txt-admin-page input:focus,
+.llms-txt-admin-page textarea:focus {
+    outline: 2px solid #2271b1;
+    outline-offset: 1px;
+}
+
+/* Ajustes para RTL */
+.rtl .llms-txt-admin-page .ml-2 {
+    margin-left: 0;
+    margin-right: 0.5rem;
+}
+
+.rtl .llms-txt-admin-page .mr-2 {
+    margin-right: 0;
+    margin-left: 0.5rem;
+}

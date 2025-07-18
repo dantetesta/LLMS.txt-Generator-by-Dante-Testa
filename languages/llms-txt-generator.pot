@@ -1,0 +1,297 @@
+# Copyright (C) 2025 Dante Testa
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: LLMS.txt Generator 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/llms-txt-generator\n"
+"Last-Translator: Dante Testa <contato@dantetesta.com.br>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-07-15T22:21:06-03:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.7.0\n"
+"X-Domain: llms-txt-generator\n"
+
+#. Plugin Name of the plugin
+#: includes/class-llms-txt-admin.php:83
+#: includes/class-llms-txt-admin.php:84
+msgid "LLMS.txt Generator"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://dantetesta.com.br/plugins/llms-txt-generator"
+msgstr ""
+
+#. Description of the plugin
+msgid "Gere e gerencie o arquivo llms.txt para controlar o acesso de Inteligências Artificiais ao conteúdo do seu site."
+msgstr ""
+
+#. Author of the plugin
+msgid "Dante Testa"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://dantetesta.com.br"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:185
+msgid "Configurações"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:268
+msgid "Erro de segurança. Por favor, recarregue a página."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:273
+msgid "Você não tem permissão para realizar esta ação."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:278
+msgid "Por favor, insira uma chave de API válida."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:301
+msgid "Chave da API validada com sucesso!"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:306
+msgid "A chave da API parece ser inválida."
+msgstr ""
+
+#: includes/class-llms-txt-file.php:267
+msgid "O arquivo llms.txt foi regenerado com sucesso!"
+msgstr ""
+
+#: includes/class-llms-txt-file.php:273
+msgid "Ocorreu um erro ao regenerar o arquivo llms.txt. Verifique as permissões de escrita."
+msgstr ""
+
+#: includes/class-llms-txt-generator.php:94
+msgid "O plugin LLMS.txt Generator requer PHP 7.0 ou superior."
+msgstr ""
+
+#: includes/class-llms-txt-generator.php:95
+msgid "Erro de ativação"
+msgstr ""
+
+#: includes/class-llms-txt-generator.php:104
+msgid "O plugin LLMS.txt Generator requer WordPress 5.0 ou superior."
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:61
+msgid "Validando chave..."
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:62
+msgid "Atualizando arquivo..."
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:63
+msgid "Ocorreu um erro. Por favor, tente novamente."
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:64
+msgid "Erro de conexão. Verifique sua internet."
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:65
+msgid "Mostrar"
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:66
+msgid "Ocultar"
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:67
+msgid "Arquivo atualizado com sucesso!"
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:68
+msgid "Erro ao atualizar o arquivo."
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:69
+msgid "Tem certeza que deseja regenerar o arquivo llms.txt? Isso substituirá o arquivo atual."
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:77
+msgid "%d caracteres restantes"
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:78
+msgid "ID do post não encontrado"
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:79
+msgid "Erro ao gerar descrição"
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:80
+msgid "Gerando descrição..."
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:81
+msgid "A descrição deve ter no máximo 150 caracteres."
+msgstr ""
+
+#: includes/class-llms-txt-meta-box.php:83
+msgid "LLMS.txt - Descrição LLMS"
+msgstr ""
+
+#: includes/class-llms-txt-meta-box.php:268
+msgid "ID do post não encontrado."
+msgstr ""
+
+#: includes/class-llms-txt-meta-box.php:274
+msgid "Post não encontrado."
+msgstr ""
+
+#: includes/class-llms-txt-meta-box.php:280
+msgid "Chave da API OpenAI não configurada."
+msgstr ""
+
+#: includes/class-llms-txt-meta-box.php:324
+msgid "Erro ao comunicar com a API OpenAI."
+msgstr ""
+
+#: includes/class-llms-txt-meta-box.php:346
+msgid "Não foi possível gerar uma descrição."
+msgstr ""
+
+#: templates/admin-page.php:21
+msgid "Configurações do LLMS.txt Generator"
+msgstr ""
+
+#: templates/admin-page.php:22
+msgid "Configure como o arquivo llms.txt será gerado para controlar o acesso de Inteligências Artificiais ao conteúdo do seu site."
+msgstr ""
+
+#: templates/admin-page.php:27
+msgid "Ver arquivo llms.txt"
+msgstr ""
+
+#: templates/admin-page.php:39
+msgid "Habilitar arquivo llms.txt"
+msgstr ""
+
+#: templates/admin-page.php:43
+msgid "Quando habilitado, o arquivo llms.txt será gerado e disponibilizado na raiz do seu site."
+msgstr ""
+
+#: templates/admin-page.php:48
+msgid "Tipos de Post Protegidos"
+msgstr ""
+
+#: templates/admin-page.php:50
+msgid "Selecione os tipos de post que poderão ser protegidos contra acesso de IAs."
+msgstr ""
+
+#: templates/admin-page.php:69
+msgid "Regras Personalizadas"
+msgstr ""
+
+#: templates/admin-page.php:71
+msgid "Adicione regras personalizadas para o arquivo llms.txt. Cada linha deve seguir o formato do arquivo llms.txt."
+msgstr ""
+
+#: templates/admin-page.php:75
+msgid "Exemplo: User-agent: GPTBot<br>Disallow: /categoria/privada/"
+msgstr ""
+
+#: templates/admin-page.php:80
+msgid "Integração com OpenAI"
+msgstr ""
+
+#: templates/admin-page.php:82
+msgid "Configure a integração com a API da OpenAI para gerar descrições técnicas automaticamente."
+msgstr ""
+
+#: templates/admin-page.php:86
+msgid "Chave da API OpenAI"
+msgstr ""
+
+#: templates/admin-page.php:94
+msgid "Necessária para gerar descrições técnicas automaticamente."
+msgstr ""
+
+#: templates/admin-page.php:99
+msgid "Validar Chave da API"
+msgstr ""
+
+#: templates/admin-page.php:107
+msgid "Gerar descrições técnicas automaticamente"
+msgstr ""
+
+#: templates/admin-page.php:111
+msgid "Quando habilitado, descrições técnicas serão geradas automaticamente ao criar um post."
+msgstr ""
+
+#: templates/admin-page.php:116
+msgid "Visualização do arquivo llms.txt"
+msgstr ""
+
+#: templates/admin-page.php:120
+msgid "Visualizar arquivo"
+msgstr ""
+
+#: templates/admin-page.php:124
+msgid "Regenerar arquivo"
+msgstr ""
+
+#: templates/admin-page.php:133
+msgid "Última atualização: %s"
+msgstr ""
+
+#: templates/admin-page.php:139
+msgid "Salvar Configurações"
+msgstr ""
+
+#: templates/admin-page.php:145
+msgid "Sobre o LLMS.txt Generator"
+msgstr ""
+
+#: templates/admin-page.php:147
+msgid "O arquivo llms.txt é um padrão emergente para controlar o acesso de Inteligências Artificiais ao conteúdo do seu site."
+msgstr ""
+
+#: templates/admin-page.php:150
+msgid "Similar ao robots.txt, ele permite que você especifique quais partes do seu site podem ou não ser acessadas por IAs para treinamento ou geração de conteúdo."
+msgstr ""
+
+#: templates/admin-page.php:153
+msgid "Para mais informações, visite <a href=\"https://llmstxt.org\" target=\"_blank\" class=\"text-blue-600 hover:text-blue-800\">llmstxt.org</a>."
+msgstr ""
+
+#: templates/admin-page.php:159
+msgid "LLMS.txt Generator v%s | Desenvolvido por <a href=\"%s\" target=\"_blank\" class=\"text-blue-600 hover:text-blue-800\">Dante Testa</a>"
+msgstr ""
+
+#: templates/meta-box.php:25
+msgid "Proteger este conteúdo contra acesso de IAs"
+msgstr ""
+
+#: templates/meta-box.php:31
+msgid "Descrição técnica (opcional)"
+msgstr ""
+
+#: templates/meta-box.php:35
+msgid "%d caracteres restantes"
+msgstr ""
+
+#: templates/meta-box.php:39
+msgid "Gerar automaticamente"
+msgstr ""
+
+#: templates/meta-box.php:45
+msgid "Esta descrição técnica será incluída no arquivo llms.txt para explicar o motivo da proteção deste conteúdo."
+msgstr ""
+
+#: templates/meta-box.php:57
+msgid "Gerando descrição..."
+msgstr ""
+
+#: templates/meta-box.php:65
+msgid "Descrição gerada com sucesso!"
+msgstr ""
