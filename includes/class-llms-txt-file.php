@@ -202,7 +202,7 @@ class LLMS_Txt_File {
             $args = array(
                 'post_type' => 'post',
                 'post_status' => 'publish',
-                'posts_per_page' => 20,
+                'posts_per_page' => -1, // Sem limite - incluir todos os posts
                 'orderby' => 'date',
                 'order' => 'DESC'
             );
@@ -240,7 +240,7 @@ class LLMS_Txt_File {
             $args = array(
                 'post_type' => 'page',
                 'post_status' => 'publish',
-                'posts_per_page' => 20,
+                'posts_per_page' => -1, // Sem limite - incluir todas as páginas
                 'orderby' => 'title',
                 'order' => 'ASC'
             );
@@ -307,7 +307,7 @@ class LLMS_Txt_File {
                 $args = array(
                     'post_type' => $post_type,
                     'post_status' => 'publish',
-                    'posts_per_page' => 20,
+                    'posts_per_page' => -1, // Sem limite - incluir todos os posts do CPT
                     'orderby' => 'title',
                     'order' => 'ASC'
                 );
@@ -330,15 +330,16 @@ class LLMS_Txt_File {
                         $title = get_the_title();
                         $permalink = get_permalink();
                         
-                        // Obter descrição baseada na fonte de conteúdo configurada
-                        $custom_description = $this->get_post_description_for_llms($post_id);
+                        // Verificar se existe uma descrição técnica personalizada (meta box)
+                        $meta_box = LLMS_Txt_Meta_Box::get_instance();
+                        $custom_description = $meta_box->get_post_description($post_id);
                         $description = '';
                         
                         // Se já temos uma descrição personalizada, usá-la
                         if (!empty($custom_description)) {
                             $description = $custom_description;
                         } else {
-                            // Caso contrário, obter conteúdo conforme configuração
+                            // Caso contrário, obter conteúdo conforme configuração do CPT
                             switch ($content_source) {
                                 case 'post_excerpt':
                                     if (!empty($post->post_excerpt)) {

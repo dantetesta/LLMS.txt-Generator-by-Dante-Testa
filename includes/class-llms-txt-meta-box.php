@@ -177,10 +177,33 @@ class LLMS_Txt_Meta_Box {
         
         // Verificar se o tipo de post atual tem a meta box
         $settings = get_option('llms_txt_settings', array());
-        $post_types = isset($settings['protected_post_types']) ? $settings['protected_post_types'] : array('post', 'page');
+        
+        // Verificar se o plugin está habilitado
+        if (!isset($settings['enabled']) || $settings['enabled'] !== '1') {
+            return;
+        }
+        
+        // Inicializar array de tipos de post para adicionar metabox (mesma lógica do add_meta_box)
+        $post_types_to_add = array();
+        
+        // Verificar configuração para posts nativos
+        if (isset($settings['include_posts']) && $settings['include_posts'] === '1') {
+            $post_types_to_add[] = 'post';
+        }
+        
+        // Verificar configuração para páginas
+        if (isset($settings['include_pages']) && $settings['include_pages'] === '1') {
+            $post_types_to_add[] = 'page';
+        }
+        
+        // Obter tipos de post personalizados selecionados
+        if (isset($settings['post_types']) && is_array($settings['post_types'])) {
+            $post_types_to_add = array_merge($post_types_to_add, $settings['post_types']);
+        }
+        
         $screen = get_current_screen();
         
-        if (!in_array($screen->post_type, $post_types)) {
+        if (!in_array($screen->post_type, $post_types_to_add)) {
             return;
         }
         
@@ -441,8 +464,65 @@ class LLMS_Txt_Meta_Box {
             wp_send_json_error(array('message' => __('Provedor de API inválido.', 'llms-txt-generator')));
         }
         
-        // Obter conteúdo do post
-        $content = $post->post_title . ' ' . strip_tags($post->post_content);
+        // Obter conteúdo do post baseado na configuração do CPT
+        $post_type = $post->post_type;
+        $content = $post->post_title; // Sempre incluir o título
+        
+        // Verificar se é um CPT com configuração específica
+        if (!in_array($post_type, array('post', 'page'))) {
+            // Obter configuração de fonte de conteúdo para este CPT
+            $content_source = isset($settings['cpt_content_source'][$post_type]) ? 
+                $settings['cpt_content_source'][$post_type] : 'post_content';
+                
+            switch ($content_source) {
+                case 'post_excerpt':
+                    if (!empty($post->post_excerpt)) {
+                        $content .= ' ' . strip_tags($post->post_excerpt);
+                    } else {
+                        $content .= ' ' . strip_tags($post->post_content);
+                    }
+                    break;
+                    
+                case 'custom_fields':
+                    // Obter campos personalizados configurados
+                    if (isset($settings['cpt_custom_fields'][$post_type]) && 
+                        !empty($settings['cpt_custom_fields'][$post_type])) {
+                        $custom_fields = array_map('trim', explode(',', $settings['cpt_custom_fields'][$post_type]));
+                        $meta_values = array();
+                        
+                        foreach ($custom_fields as $field) {
+                            $meta_value = get_post_meta($post_id, $field, true);
+                            if (!empty($meta_value)) {
+                                // Converter array para string se necessário
+                                if (is_array($meta_value)) {
+                                    $meta_value = implode(', ', $meta_value);
+                                }
+                                $meta_values[] = strip_tags($meta_value);
+                            }
+                        }
+                        
+                        if (!empty($meta_values)) {
+                            $content .= ' ' . implode(' | ', $meta_values);
+                        } else {
+                            // Fallback para conteúdo se não houver metafields
+                            $content .= ' ' . strip_tags($post->post_content);
+                        }
+                    } else {
+                        // Fallback para conteúdo se não houver campos configurados
+                        $content .= ' ' . strip_tags($post->post_content);
+                    }
+                    break;
+                    
+                case 'post_content':
+                default:
+                    $content .= ' ' . strip_tags($post->post_content);
+                    break;
+            }
+        } else {
+            // Para posts e páginas nativos, usar conteúdo padrão
+            $content .= ' ' . strip_tags($post->post_content);
+        }
+        
         $content = substr($content, 0, 2000); // Limitado a 2000 caracteres para melhor contexto
         
         // Prompt para geração de descrição técnica

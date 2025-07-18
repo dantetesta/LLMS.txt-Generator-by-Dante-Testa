@@ -39,8 +39,7 @@ class LLMS_Txt_Bulk_Generator {
      */
     private function __construct() {
         // Registrar hooks
-        add_action('admin_init', array($this, 'register_admin_columns'));
-        add_action('admin_init', array($this, 'register_bulk_actions'));
+        add_action('admin_init', array($this, 'init_admin_features'));
         add_action('admin_enqueue_scripts', array($this, 'enqueue_assets'));
         
         // Endpoints AJAX
@@ -49,9 +48,6 @@ class LLMS_Txt_Bulk_Generator {
         
         // Manipulação do bulk action redirecionamento
         add_filter('wp_redirect', array($this, 'handle_bulk_redirect'), 10, 2);
-        
-        // Carregar tipos de post habilitados
-        $this->load_post_types();
     }
 
     /**
@@ -67,29 +63,56 @@ class LLMS_Txt_Bulk_Generator {
     }
     
     /**
+     * Inicializa recursos administrativos no hook admin_init
+     */
+    public function init_admin_features() {
+        // Carregar tipos de post habilitados
+        $this->load_post_types();
+        
+        // Registrar colunas administrativas
+        $this->register_admin_columns();
+        
+        // Registrar ações em massa
+        $this->register_bulk_actions();
+    }
+    
+    /**
      * Carrega os tipos de post habilitados para geração
      */
     private function load_post_types() {
         // Obter configurações do plugin
         $settings = get_option('llms_txt_settings', array());
         
+        // Debug: Log das configurações
+        error_log('LLMS Bulk Generator: Configurações carregadas: ' . print_r($settings, true));
+        
         // Tipos padrão (sempre habilitados)
         $this->post_types = array('post', 'page');
         
         // Adicionar CPTs habilitados nas configurações
-        if (isset($settings['enabled_post_types']) && is_array($settings['enabled_post_types'])) {
-            $this->post_types = array_merge($this->post_types, $settings['enabled_post_types']);
+        if (isset($settings['post_types']) && is_array($settings['post_types'])) {
+            $this->post_types = array_merge($this->post_types, $settings['post_types']);
+            error_log('LLMS Bulk Generator: CPTs encontrados nas configurações: ' . print_r($settings['post_types'], true));
+        } else {
+            error_log('LLMS Bulk Generator: Nenhum CPT encontrado nas configurações');
         }
         
         // Filtrar para permitir extensão via código
         $this->post_types = apply_filters('llms_txt_generator_bulk_post_types', $this->post_types);
+        
+        // Debug: Log dos tipos de post finais
+        error_log('LLMS Bulk Generator: Tipos de post finais: ' . print_r($this->post_types, true));
     }
     
     /**
      * Registra colunas administrativas para os tipos de post habilitados
      */
     public function register_admin_columns() {
+        error_log('LLMS Bulk Generator: Registrando colunas administrativas para tipos de post: ' . print_r($this->post_types, true));
+        
         foreach ($this->post_types as $post_type) {
+            error_log('LLMS Bulk Generator: Registrando coluna para tipo de post: ' . $post_type);
+            
             // Adiciona a coluna
             add_filter("manage_{$post_type}_posts_columns", array($this, 'add_llms_column'));
             
@@ -415,14 +438,19 @@ class LLMS_Txt_Bulk_Generator {
         }
         
         // Gerar descrição técnica
+        error_log('LLMS Bulk: Iniciando geração para post ID ' . $post_id);
         $description = $this->generate_technical_description($post);
         
         if (is_wp_error($description)) {
+            error_log('LLMS Bulk: Erro na geração: ' . $description->get_error_message());
             wp_send_json_error(array('message' => $description->get_error_message()));
         }
         
+        error_log('LLMS Bulk: Descrição gerada: ' . $description);
+        
         // Salvar a descrição técnica
         update_post_meta($post_id, '_llms_txt_description', $description);
+        error_log('LLMS Bulk: Descrição salva no meta ' . $post_id);
         
         // Resposta de sucesso
         $is_bulk = isset($_POST['is_bulk']) && $_POST['is_bulk'];
@@ -504,8 +532,8 @@ class LLMS_Txt_Bulk_Generator {
             return new WP_Error('no_api_key', __('Chave de API da OpenAI não configurada.', 'llms-txt-generator'));
         }
         
-        // Obter conteúdo do post
-        $content = $post->post_content;
+        // Obter conteúdo do post baseado na configuração do CPT
+        $content = $this->extract_post_content($post);
         
         // Limpar o conteúdo para enviar à API
         $content = wp_strip_all_tags($content);
@@ -586,8 +614,8 @@ class LLMS_Txt_Bulk_Generator {
             return new WP_Error('no_api_key', __('Chave de API do DeepSeek não configurada.', 'llms-txt-generator'));
         }
         
-        // Obter conteúdo do post
-        $content = $post->post_content;
+        // Obter conteúdo do post baseado na configuração do CPT
+        $content = $this->extract_post_content($post);
         
         // Limpar o conteúdo para enviar à API
         $content = wp_strip_all_tags($content);
@@ -653,6 +681,89 @@ class LLMS_Txt_Bulk_Generator {
         }
         
         return trim($data['choices'][0]['message']['content']);
+    }
+    
+    /**
+     * Extrai o conteúdo do post baseado na configuração do CPT
+     *
+     * @param WP_Post $post Objeto do post
+     * @return string Conteúdo extraído
+     */
+    private function extract_post_content($post) {
+        $settings = get_option('llms_txt_settings', array());
+        $post_type = $post->post_type;
+        $content = '';
+        
+        // Log de debug
+        error_log('LLMS Bulk: Extraindo conteúdo para post ID ' . $post->ID . ' (tipo: ' . $post_type . ')');
+        error_log('LLMS Bulk: Configurações: ' . print_r($settings, true));
+        
+        // Verificar se é um CPT com configuração específica
+        if (!in_array($post_type, array('post', 'page'))) {
+            // Obter configuração de fonte de conteúdo para este CPT
+            $content_source = isset($settings['cpt_content_source'][$post_type]) ? 
+                $settings['cpt_content_source'][$post_type] : 'post_content';
+                
+            error_log('LLMS Bulk: Fonte de conteúdo para ' . $post_type . ': ' . $content_source);
+                
+            switch ($content_source) {
+                case 'post_excerpt':
+                    if (!empty($post->post_excerpt)) {
+                        $content = $post->post_excerpt;
+                    } else {
+                        $content = $post->post_content;
+                    }
+                    break;
+                    
+                case 'custom_fields':
+                    // Obter campos personalizados configurados
+                    error_log('LLMS Bulk: Processando custom_fields para ' . $post_type);
+                    if (isset($settings['cpt_custom_fields'][$post_type]) && 
+                        !empty($settings['cpt_custom_fields'][$post_type])) {
+                        $custom_fields = array_map('trim', explode(',', $settings['cpt_custom_fields'][$post_type]));
+                        error_log('LLMS Bulk: Campos configurados: ' . print_r($custom_fields, true));
+                        $meta_values = array();
+                        
+                        foreach ($custom_fields as $field) {
+                            $meta_value = get_post_meta($post->ID, $field, true);
+                            error_log('LLMS Bulk: Campo ' . $field . ' = ' . print_r($meta_value, true));
+                            if (!empty($meta_value)) {
+                                // Converter array para string se necessário
+                                if (is_array($meta_value)) {
+                                    $meta_value = implode(', ', $meta_value);
+                                }
+                                $meta_values[] = $meta_value;
+                            }
+                        }
+                        
+                        error_log('LLMS Bulk: Meta values encontrados: ' . print_r($meta_values, true));
+                        if (!empty($meta_values)) {
+                            $content = implode(' | ', $meta_values);
+                            error_log('LLMS Bulk: Conteúdo final dos metafields: ' . $content);
+                        } else {
+                            // Fallback para conteúdo se não houver metafields
+                            $content = $post->post_content;
+                            error_log('LLMS Bulk: Usando fallback - conteúdo do post');
+                        }
+                    } else {
+                        // Fallback para conteúdo se não houver campos configurados
+                        $content = $post->post_content;
+                    }
+                    break;
+                    
+                case 'post_content':
+                default:
+                    $content = $post->post_content;
+                    break;
+            }
+        } else {
+            // Para posts e páginas nativos, usar conteúdo padrão
+            $content = $post->post_content;
+            error_log('LLMS Bulk: Usando conteúdo padrão para post/page');
+        }
+        
+        error_log('LLMS Bulk: Conteúdo final retornado: ' . substr($content, 0, 200) . '...');
+        return $content;
     }
 }
 
