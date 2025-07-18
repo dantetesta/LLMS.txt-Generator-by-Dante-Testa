@@ -3,9 +3,9 @@
   <img src="https://img.shields.io/badge/Versão-2.0.6-green.svg" alt="Versão">
   <img src="https://img.shields.io/badge/Licença-GPL%20v2%2B-orange.svg" alt="Licença">
 </p>
-
+<p align="center">
 # LLMS.txt Generator
-
+</p>
 <p align="center">
   <b>Plugin WordPress para gerar e gerenciar o arquivo llms.txt</b><br>
   Controle como as Inteligências Artificiais acessam e utilizam o conteúdo do seu site WordPress
