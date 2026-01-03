@@ -1,0 +1,836 @@
+# Copyright (C) 2025 Dante Testa
+# This file is distributed under the GPL-2.0+.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: LLMS.txt Generator 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/llms-txt-generator\n"
+"Last-Translator: Dante Testa <contato@dantetesta.com.br>\n"
+"Language-Team: PT_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-07-18 04:49+0000\n"
+"PO-Revision-Date: 2025-07-18 00:00+0000\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Domain: llms-txt-generator\n"
+
+#: templates/admin-page.php:396
+msgid ""
+"## Projetos\\n\\n- [Projeto A](https://exemplo.com/projeto-a): Descrição do "
+"projeto A\\n- [Projeto B](https://exemplo.com/projeto-b): Descrição do "
+"projeto B"
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:96 templates/meta-box.php:240
+#: templates/meta-box.php:298
+msgid "%d caracteres restantes"
+msgstr ""
+
+#: templates/admin-page.php:346
+msgid "_descricao, _info, _atributos"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:550
+msgid ""
+"A chave da API OpenRouter é válida, mas não tem acesso aos modelos DeepSeek. "
+"Verifique sua conta."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:559
+msgid "A chave da API parece ser inválida."
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:100
+msgid "A descrição deve ter no máximo 150 caracteres."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:707 templates/admin-page.php:388
+msgid ""
+"Adicione conteúdo personalizado para o arquivo llms.txt. Use o formato "
+"Markdown."
+msgstr ""
+
+#: templates/meta-box.php:212
+msgid ""
+"Adicione uma descrição deste conteúdo para ser exibida no arquivo llms.txt."
+msgstr ""
+
+#: templates/admin-page.php:213
+msgid ""
+"Adicione uma descrição personalizada para o seu site no arquivo llms.txt."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:628
+msgid ""
+"Adicione uma descrição personalizada para o seu site no arquivo llms.txt. "
+"Esta descrição será exibida logo após o título do site."
+msgstr ""
+
+#: templates/admin-page.php:515 templates/admin-page.php:571
+msgid "Alternar visibilidade da chave"
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:85
+msgid "Arquivo atualizado com sucesso!"
+msgstr ""
+
+#: templates/admin-page.php:251
+msgid ""
+"Ativa/desativa a inclusão de posts no arquivo llms.txt e remove o metabox de "
+"edição"
+msgstr ""
+
+#: templates/admin-page.php:268
+msgid ""
+"Ativa/desativa a inclusão de páginas no arquivo llms.txt e remove o metabox "
+"de edição"
+msgstr ""
+
+#: templates/meta-box.php:229
+msgid ""
+"Ative esta opção para não incluir este conteúdo no arquivo llms.txt, "
+"tornando-o invisível para IAs."
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:80
+msgid "Atualizando arquivo..."
+msgstr ""
+
+#: templates/admin-page.php:332
+msgid "Campos personalizados"
+msgstr ""
+
+#: templates/admin-page.php:888
+msgid "Canal no YouTube"
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:345
+msgid "Cancelar"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:183
+msgid "Chave da API DeepSeek V3"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:175 templates/admin-page.php:501
+msgid "Chave da API OpenAI"
+msgstr ""
+
+#: includes/class-llms-txt-meta-box.php:455
+msgid "Chave da API OpenAI não configurada."
+msgstr ""
+
+#: templates/admin-page.php:557
+msgid "Chave da API OpenRouter (DeepSeek Chat v3)"
+msgstr ""
+
+#: includes/class-llms-txt-meta-box.php:460
+msgid "Chave da API OpenRouter (DeepSeek) não configurada."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:556
+msgid "Chave da API validada com sucesso!"
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:527
+msgid "Chave de API da OpenAI não configurada."
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:609
+msgid "Chave de API do DeepSeek não configurada."
+msgstr ""
+
+#: templates/admin-page.php:714
+msgid "Compras & Hospedagem"
+msgstr ""
+
+#: templates/admin-page.php:727
+msgid "Compre com nosso link de afiliado"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:325
+msgid "Configurações"
+msgstr ""
+
+#: templates/admin-page.php:177
+msgid "Configurações do LLMS.txt Generator"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:105
+msgid "Configurações Gerais"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:306
+msgid "Configurações salvas com sucesso!"
+msgstr ""
+
+#: templates/admin-page.php:429
+msgid ""
+"Configure a integração com APIs de Inteligência Artificial para gerar "
+"descrições técnicas automaticamente."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:598
+msgid ""
+"Configure a integração com APIs de Inteligência Artificial para geração "
+"automática de descrições técnicas."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:589
+msgid ""
+"Configure as opções gerais para o arquivo llms.txt. Este arquivo ajuda as "
+"Inteligências Artificiais a entenderem o conteúdo do seu site."
+msgstr ""
+
+#: templates/admin-page.php:178
+msgid ""
+"Configure como o arquivo llms.txt será gerado para informar às Inteligências "
+"Artificiais sobre o conteúdo do seu site."
+msgstr ""
+
+#: templates/admin-page.php:230 templates/admin-page.php:237
+msgid "Conteúdo a Incluir"
+msgstr ""
+
+#: templates/admin-page.php:314
+msgid "Conteúdo do post"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:152 templates/admin-page.php:384
+msgid "Conteúdo Personalizado"
+msgstr ""
+
+#. Author of the plugin
+msgid "Dante Testa"
+msgstr ""
+
+#: templates/admin-page.php:862
+msgid ""
+"Dante Testa é um desenvolvedor web especializado em WordPress e entusiasta "
+"da tecnologia. Apaixonado por criar soluções que unem inovação e "
+"criatividade, dedica-se a desenvolver plugins e temas que simplificam a vida "
+"de seus usuários. Como educador, compartilha conhecimento através de cursos, "
+"mentorias e conteúdo gratuito, ajudando profissionais a dominarem o "
+"ecossistema WordPress. Sua missão é democratizar o acesso a ferramentas de "
+"qualidade e conhecimento técnico, tornando a web mais acessível para todos."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:723
+msgid "DeepSeek V3 (Gratuito via OpenRouter)"
+msgstr ""
+
+#: templates/admin-page.php:740
+msgid "Descontos exclusivos para você"
+msgstr ""
+
+#: templates/admin-page.php:220
+msgid "Descreva o propósito do seu site..."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:120 templates/admin-page.php:209
+msgid "Descrição do Site"
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:318
+msgid "Descrição gerada com sucesso"
+msgstr ""
+
+#: templates/meta-box.php:275
+msgid "Descrição gerada com sucesso!"
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:432
+msgid "Descrição já existe, pulando."
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:138
+msgid "Descrição LLMS"
+msgstr ""
+
+#: templates/meta-box.php:209
+msgid "Descrição para IAs"
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:173
+msgid "Descrição técnica gerada"
+msgstr ""
+
+#: includes/class-llms-txt-meta-box.php:624
+msgid "Descrição técnica gerada com sucesso!"
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:453
+msgid "Descrição técnica gerada com sucesso."
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:320
+msgid "Deseja realmente regenerar a descrição deste item?"
+msgstr ""
+
+#: templates/admin-page.php:876
+msgid "Email (PIX e PayPal)"
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:344
+msgid "Erro"
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:86
+msgid "Erro ao atualizar o arquivo."
+msgstr ""
+
+#: includes/class-llms-txt-meta-box.php:603
+msgid "Erro ao comunicar com a API."
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:319
+#: includes/class-llms-txt-i18n.php:98
+msgid "Erro ao gerar descrição"
+msgstr ""
+
+#: templates/meta-box.php:300
+msgid "Erro ao gerar descrição. Por favor, tente novamente."
+msgstr ""
+
+#: includes/class-llms-txt-meta-box.php:628
+msgid "Erro ao processar a resposta da API."
+msgstr ""
+
+#: includes/class-llms-txt-generator.php:104
+#: includes/class-llms-txt-generator.php:114
+msgid "Erro de ativação"
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:82
+msgid "Erro de conexão. Verifique sua internet."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:525
+msgid "Erro de conexão: "
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:481 includes/class-llms-txt-file.php:525
+#: includes/class-llms-txt-file.php:548
+#: includes/class-llms-txt-meta-box.php:432
+msgid "Erro de segurança. Por favor, recarregue a página."
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:406
+#: includes/class-llms-txt-bulk-generator.php:411
+#: includes/class-llms-txt-bulk-generator.php:467
+msgid "Erro de segurança. Recarregue a página e tente novamente."
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:400
+msgid "Erro de segurança: nonce não fornecido."
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:666
+msgid "Erro desconhecido da API DeepSeek."
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:582
+msgid "Erro desconhecido da API OpenAI."
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:380
+msgid "Erro desconhecido durante o processamento em massa."
+msgstr ""
+
+#: templates/meta-box.php:258
+msgid ""
+"Esta descrição será exibida junto ao link para este conteúdo no arquivo llms."
+"txt."
+msgstr ""
+
+#: templates/admin-page.php:223
+msgid ""
+"Esta descrição será exibida logo após o título do site no arquivo llms.txt."
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:424
+msgid "Este item está marcado como excluído do LLMS.txt."
+msgstr ""
+
+#: templates/admin-page.php:340
+msgid "Ex: _descricao, _peso, _info"
+msgstr ""
+
+#: templates/meta-box.php:222
+msgid "Excluir do llms.txt"
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:160
+msgid "Excluído do LLMS.txt"
+msgstr ""
+
+#: templates/admin-page.php:408
+msgid "Exemplo de formato Markdown para conteúdo personalizado:"
+msgstr ""
+
+#: templates/admin-page.php:773
+msgid "Ferramentas WordPress"
+msgstr ""
+
+#: templates/admin-page.php:304
+msgid "Fonte de conteúdo para descrições:"
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:99 templates/meta-box.php:266
+msgid "Gerando descrição..."
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:341
+msgid "Gerando descrições LLMS faltantes"
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:317
+msgid "Gerando..."
+msgstr ""
+
+#: templates/meta-box.php:252
+msgid "Gerar automaticamente"
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:180
+msgid "Gerar descrição"
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:205
+msgid "Gerar descrições LLMS (apenas novos)"
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:206
+msgid "Gerar descrições LLMS (forçar todos)"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:786
+msgid "Gerar descrições técnicas automaticamente"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:191
+msgid "Geração Automática"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:612 templates/admin-page.php:191
+msgid "Habilitar arquivo llms.txt"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:112
+msgid "Habilitar LLMS.txt"
+msgstr ""
+
+#: templates/admin-page.php:766
+msgid "Hospedagem Cloud Gerenciada"
+msgstr ""
+
+#: templates/admin-page.php:753
+msgid "Hospedagem de sites"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://dantetesta.com.br"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://dantetesta.com.br/plugins/llms-txt-generator"
+msgstr ""
+
+#: templates/admin-page.php:785
+msgid "IA que Cria Sites WordPress"
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:97
+msgid "ID do post não encontrado"
+msgstr ""
+
+#: templates/meta-box.php:299
+msgid "ID do post não encontrado."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:128
+msgid "Incluir Posts"
+msgstr ""
+
+#: templates/admin-page.php:250
+msgid "Incluir posts"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:644
+msgid "Incluir posts no arquivo llms.txt"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:136
+msgid "Incluir Páginas"
+msgstr ""
+
+#: templates/admin-page.php:267
+msgid "Incluir páginas"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:661
+msgid "Incluir páginas no arquivo llms.txt"
+msgstr ""
+
+#: templates/admin-page.php:889
+msgid "Inscreva-se!"
+msgstr ""
+
+#: templates/admin-page.php:510
+msgid "Insira sua chave API OpenAI"
+msgstr ""
+
+#: templates/admin-page.php:566
+msgid "Insira sua chave API OpenRouter"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:751
+msgid ""
+"Insira sua chave da API OpenAI para habilitar a geração automática de "
+"descrições técnicas."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:770
+msgid ""
+"Insira sua chave da API OpenRouter para usar o modelo DeepSeek V3 (gratuito)."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:160 templates/admin-page.php:425
+msgid "Integração com IA"
+msgstr ""
+
+#: templates/admin-page.php:708
+msgid "Links Recomendados - Use nossos links e ajude esse plugin a se manter!"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:729 templates/admin-page.php:477
+msgid "Links úteis:"
+msgstr ""
+
+#: includes/class-llms-txt-meta-box.php:99
+msgid "LLMS.txt - Descrição LLMS"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:73 includes/class-llms-txt-admin.php:74
+msgid "LLMS.txt Generator"
+msgstr ""
+
+#. Name of the plugin
+msgid "LLMS.txt Generator by Dante Testa"
+msgstr ""
+
+#: templates/admin-page.php:909
+#, php-format
+msgid "LLMS.txt Generator v%s"
+msgstr ""
+
+#: templates/admin-page.php:690
+msgid "Mais informações"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:730 templates/admin-page.php:484
+msgid "Manual da API OpenAI"
+msgstr ""
+
+#: templates/admin-page.php:491
+msgid "Manual da API OpenRouter (DeepSeek Chat v3)"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:731
+msgid "Manual da API OpenRouter (DeepSeek)"
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:83 templates/admin-page.php:522
+#: templates/admin-page.php:578
+msgid "Mostrar"
+msgstr ""
+
+#: templates/admin-page.php:526
+msgid "Necessária para gerar descrições técnicas automaticamente com a OpenAI."
+msgstr ""
+
+#: templates/admin-page.php:582
+msgid "Necessária para usar o modelo DeepSeek Chat v3 (gratuito)."
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:377
+msgid "Nenhum post foi selecionado para gerar descrições."
+msgstr ""
+
+#: templates/admin-page.php:339
+msgid "Nomes dos campos personalizados (separados por vírgula):"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:682
+msgid "Não há tipos de post adicionais disponíveis."
+msgstr ""
+
+#: includes/class-llms-txt-file.php:562
+msgid "O arquivo llms.txt foi regenerado com sucesso!"
+msgstr ""
+
+#: templates/admin-page.php:666
+msgid ""
+"O arquivo llms.txt é um formato que permite informar às Inteligências "
+"Artificiais sobre o conteúdo do seu site de forma estruturada."
+msgstr ""
+
+#: templates/admin-page.php:348
+msgid ""
+"O conteúdo desses campos será concatenado para gerar o contexto da descrição."
+msgstr ""
+
+#: includes/class-llms-txt-generator.php:103
+msgid "O plugin LLMS.txt Generator requer PHP 7.0 ou superior."
+msgstr ""
+
+#: includes/class-llms-txt-generator.php:113
+msgid "O plugin LLMS.txt Generator requer WordPress 5.0 ou superior."
+msgstr ""
+
+#: templates/admin-page.php:664
+msgid "O que é"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:752 templates/admin-page.php:547
+msgid "Obter chave da API OpenAI"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:771 templates/admin-page.php:603
+msgid "Obter chave gratuita da API OpenRouter"
+msgstr ""
+
+#: includes/class-llms-txt-file.php:568
+msgid ""
+"Ocorreu um erro ao regenerar o arquivo llms.txt. Verifique as permissões de "
+"escrita."
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:81
+msgid "Ocorreu um erro. Por favor, tente novamente."
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:84
+msgid "Ocultar"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:722
+msgid "OpenAI (ChatGPT)"
+msgstr ""
+
+#: templates/admin-page.php:813
+msgid "PageBuilder para WordPress"
+msgstr ""
+
+#: templates/admin-page.php:878
+msgid "Pague um café pra mim se você gostou da solução! 😊"
+msgstr ""
+
+#: templates/admin-page.php:692
+msgid "Para mais informações, visite"
+msgstr ""
+
+#: templates/admin-page.php:677
+msgid "Para que serve"
+msgstr ""
+
+#: templates/admin-page.php:826
+msgid "Plataforma de IA tudo em um"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Plugin WordPress que gera e gerencia o arquivo llms.txt, permitindo "
+"controlar como modelos de IA acessam seu site. Oferece geração automática de "
+"descrições técnicas para posts, páginas e CPTs, com suporte à integração com "
+"OpenAI e DeepSeek. Ideal para melhorar como as IAs compreendem e representam "
+"seu conteúdo."
+msgstr ""
+
+#: templates/admin-page.php:799
+msgid "Plugins Avançados para WordPress"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:491
+msgid "Por favor, insira uma chave de API válida."
+msgstr ""
+
+#: includes/class-llms-txt-meta-box.php:445
+msgid "Post não encontrado."
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:346
+msgid "Processamento concluído"
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:471
+msgid "Processamento iniciado. O JavaScript gerenciará a fila."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:512
+#: includes/class-llms-txt-meta-box.php:464
+msgid "Provedor de API inválido."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:167 templates/admin-page.php:435
+msgid "Provedor de IA"
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:348
+msgid "Pulado (já existente)"
+msgstr ""
+
+#: templates/admin-page.php:195
+msgid ""
+"Quando habilitado, o arquivo llms.txt será gerado e disponibilizado na raiz "
+"do seu site."
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:340
+msgid "Regenerando todas as descrições LLMS"
+msgstr ""
+
+#: templates/admin-page.php:163
+msgid "Regenerar arquivo"
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:174
+msgid "Regenerar descrição"
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:675
+msgid "Resposta inválida da API DeepSeek."
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:591
+msgid "Resposta inválida da API OpenAI."
+msgstr ""
+
+#: templates/admin-page.php:323
+msgid "Resumo (excerpt)"
+msgstr ""
+
+#: templates/admin-page.php:629
+msgid "Salvar Configurações"
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:663
+msgid ""
+"Se marcado, as páginas publicadas também serão incluídas no arquivo llms.txt "
+"e o metabox será exibido na edição de páginas."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:614
+msgid ""
+"Se marcado, o arquivo llms.txt será gerado e disponibilizado no seu site."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:788
+msgid ""
+"Se marcado, o plugin tentará gerar automaticamente descrições técnicas para "
+"posts e páginas que não possuem uma descrição personalizada."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:646
+msgid ""
+"Se marcado, os posts publicados serão incluídos no arquivo llms.txt e o "
+"metabox será exibido na edição de posts."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:686
+msgid ""
+"Selecione os tipos de post adicionais que deseja incluir no arquivo llms.txt:"
+msgstr ""
+
+#: templates/admin-page.php:234
+msgid ""
+"Selecione quais tipos de conteúdo devem ser incluídos no arquivo llms.txt."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:726
+msgid "Selecione qual provedor de IA usar para gerar descrições automáticas."
+msgstr ""
+
+#: includes/class-llms-txt-file.php:386
+msgid "Sem descrição disponível"
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:179
+msgid "Sem descrição técnica"
+msgstr ""
+
+#: templates/admin-page.php:679
+msgid ""
+"Similar ao robots.txt, ele permite que você especifique quais partes do seu "
+"site podem ou não ser acessadas por IAs para treinamento ou geração de "
+"conteúdo."
+msgstr ""
+
+#: templates/admin-page.php:843
+msgid "Sobre o Desenvolvedor"
+msgstr ""
+
+#: templates/admin-page.php:642
+msgid "Sobre o LLMS.txt Generator"
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:343
+msgid "Sucesso"
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:87
+msgid ""
+"Tem certeza que deseja regenerar o arquivo llms.txt? Isso substituirá o "
+"arquivo atual."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:144 templates/admin-page.php:273
+msgid "Tipos de Post Adicionais"
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:347
+msgid "Todas as descrições foram processadas."
+msgstr ""
+
+#: includes/class-llms-txt-i18n.php:79
+msgid "Validando chave..."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:748 includes/class-llms-txt-admin.php:767
+#: templates/admin-page.php:538 templates/admin-page.php:594
+msgid "Validar Chave"
+msgstr ""
+
+#: templates/admin-page.php:533
+msgid "Validar chave API OpenAI"
+msgstr ""
+
+#: templates/admin-page.php:589
+msgid "Validar chave API OpenRouter"
+msgstr ""
+
+#: templates/admin-page.php:155
+msgid "Ver arquivo llms.txt"
+msgstr ""
+
+#: templates/admin-page.php:896
+msgid "Visite meu site"
+msgstr ""
+
+#: includes/class-llms-txt-bulk-generator.php:418
+msgid "Você não tem permissão para editar este post."
+msgstr ""
+
+#: includes/class-llms-txt-admin.php:486 includes/class-llms-txt-file.php:530
+#: includes/class-llms-txt-file.php:553
+#: includes/class-llms-txt-meta-box.php:437
+msgid "Você não tem permissão para realizar esta ação."
+msgstr ""
+
+#: templates/admin-page.php:620
+#, php-format
+msgid "Última atualização do arquivo: %s"
+msgstr ""
