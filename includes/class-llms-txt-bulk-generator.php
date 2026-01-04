@@ -505,6 +505,9 @@ class LLMS_Txt_Bulk_Generator
         if ($api_provider === 'deepseek') {
             // Usar DeepSeek
             $description = $this->generate_description_with_deepseek($post);
+        } else if ($api_provider === 'gemini') {
+            // Usar Google Gemini
+            $description = $this->generate_description_with_gemini($post);
         } else {
             // Padrão: Usar OpenAI
             $description = $this->generate_description_with_openai($post);
@@ -688,6 +691,90 @@ class LLMS_Txt_Bulk_Generator
         }
 
         return trim($data['choices'][0]['message']['content']);
+    }
+
+    /**
+     * Gera descrição técnica usando a API do Google Gemini
+     *
+     * @param WP_Post $post Objeto do post
+     * @return string|WP_Error Descrição técnica ou objeto de erro
+     */
+    private function generate_description_with_gemini($post)
+    {
+        // Verificar se temos uma chave de API
+        $settings = get_option('llms_txt_settings', array());
+        $api_key = isset($settings['gemini_api_key']) ? $settings['gemini_api_key'] : '';
+
+        if (empty($api_key)) {
+            return new WP_Error('no_api_key', __('Chave de API do Google Gemini não configurada.', 'llms-txt-generator'));
+        }
+
+        // Obter conteúdo do post baseado na configuração do CPT
+        $content = $this->extract_post_content($post);
+
+        // Limpar o conteúdo para enviar à API
+        $content = wp_strip_all_tags($content);
+        $content = preg_replace('/\s+/', ' ', $content);
+
+        // Limitar o conteúdo para não exceder os limites da API
+        if (mb_strlen($content) > 4000) {
+            $content = mb_substr($content, 0, 4000);
+        }
+
+        // Criar prompt para a API
+        $prompt = sprintf(
+            'Crie uma descrição técnica objetiva e concisa para o seguinte conteúdo. A descrição deve ter no máximo 350 caracteres (1-3 frases) e ser focada nos aspectos técnicos do assunto. Não use linguagem promocional. Título: "%s". Conteúdo: "%s"',
+            $post->post_title,
+            $content
+        );
+
+        // Requisição para a API do Google Gemini
+        $response = wp_remote_post(
+            'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' . $api_key,
+            array(
+                'headers' => array(
+                    'Content-Type' => 'application/json',
+                ),
+                'timeout' => 30,
+                'body' => json_encode(array(
+                    'contents' => array(
+                        array(
+                            'role' => 'user',
+                            'parts' => array(
+                                array('text' => 'Você é um assistente especializado em criar descrições técnicas concisas para arquivos llms.txt. ' . $prompt)
+                            )
+                        )
+                    ),
+                    'generationConfig' => array(
+                        'temperature' => 0.3,
+                        'maxOutputTokens' => 150,
+                    )
+                ))
+            )
+        );
+
+        // Verificar erros na resposta
+        if (is_wp_error($response)) {
+            return $response;
+        }
+
+        $response_code = wp_remote_retrieve_response_code($response);
+        if ($response_code !== 200) {
+            $body = wp_remote_retrieve_body($response);
+            $data = json_decode($body, true);
+            $error_message = isset($data['error']['message']) ? $data['error']['message'] : __('Erro desconhecido da API Gemini.', 'llms-txt-generator');
+            return new WP_Error('api_error', $error_message);
+        }
+
+        // Extrair descrição da resposta
+        $body = wp_remote_retrieve_body($response);
+        $data = json_decode($body, true);
+
+        if (!isset($data['candidates'][0]['content']['parts'][0]['text'])) {
+            return new WP_Error('invalid_response', __('Resposta inválida da API Gemini.', 'llms-txt-generator'));
+        }
+
+        return trim($data['candidates'][0]['content']['parts'][0]['text']);
     }
 
     /**

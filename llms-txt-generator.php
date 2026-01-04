@@ -3,7 +3,7 @@
  * Plugin Name: LLMS.txt Generator by Dante Testa
  * Plugin URI: https://dantetesta.com.br/plugins/llms-txt-generator
  * Description: Plugin WordPress que gera e gerencia o arquivo llms.txt, permitindo controlar como modelos de IA acessam seu site. Oferece geração automática de descrições técnicas para posts, páginas e CPTs, com suporte à integração com OpenAI e DeepSeek. Ideal para melhorar como as IAs compreendem e representam seu conteúdo.
- * Version: 2.1.0
+ * Version: 2.2.0
  * Requires at least: 5.6
  * Requires PHP: 8.0
  * Author: Dante Testa

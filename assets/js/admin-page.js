@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Função para alternar visibilidade dos campos de API com base no provedor selecionado
     function toggleApiFields() {
         const selectedProvider = document.querySelector('input[name="llms_txt_settings[ai_provider]"]:checked').value;
-        const apiFields = document.querySelectorAll('.openai-api-fields, .deepseek-api-fields');
+        const apiFields = document.querySelectorAll('.openai-api-fields, .deepseek-api-fields, .gemini-api-fields');
         
         // Mostrar/ocultar campos de API apropriados
         apiFields.forEach(field => {
@@ -153,6 +153,10 @@ document.addEventListener('DOMContentLoaded', function() {
             apiKey = document.getElementById('llms_txt_deepseek_api_key').value;
             statusSpan = document.getElementById('llms_txt_deepseek_api_key_status');
             inputField = document.getElementById('llms_txt_deepseek_api_key');
+        } else if (provider === 'gemini') {
+            apiKey = document.getElementById('llms_txt_gemini_api_key').value;
+            statusSpan = document.getElementById('llms_txt_gemini_api_key_status');
+            inputField = document.getElementById('llms_txt_gemini_api_key');
         } else {
             return;
         }
@@ -255,6 +259,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if (validateDeepSeekButton) {
         validateDeepSeekButton.addEventListener('click', function() {
             validateApiKey('deepseek');
+        });
+    }
+    
+    const validateGeminiButton = document.getElementById('llms_txt_validate_gemini_api_key');
+    if (validateGeminiButton) {
+        validateGeminiButton.addEventListener('click', function() {
+            validateApiKey('gemini');
         });
     }
     

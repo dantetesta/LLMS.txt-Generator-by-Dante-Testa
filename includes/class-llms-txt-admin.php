@@ -502,6 +502,12 @@ class LLMS_Txt_Admin
                 'Content-Type' => 'application/json',
                 'HTTP_X_TITLE' => 'LLMS.txt Generator WordPress Plugin',
             );
+        } else if ($api_provider === 'gemini') {
+            // Validar chave Gemini fazendo uma requisição de teste
+            $endpoint = 'https://generativelanguage.googleapis.com/v1beta/models?key=' . $api_key;
+            $headers = array(
+                'Content-Type' => 'application/json',
+            );
         } else {
             wp_send_json_error(array('message' => __('Provedor de API inválido.', 'llms-txt-generator')));
             return;
@@ -609,7 +615,8 @@ class LLMS_Txt_Admin
             <?php _e('Habilitar arquivo llms.txt', 'llms-txt-generator'); ?>
         </label>
         <p class="description">
-            <?php _e('Se marcado, o arquivo llms.txt será gerado e disponibilizado no seu site.', 'llms-txt-generator'); ?></p>
+            <?php _e('Se marcado, o arquivo llms.txt será gerado e disponibilizado no seu site.', 'llms-txt-generator'); ?>
+        </p>
         <?php
     }
 
@@ -734,13 +741,16 @@ class LLMS_Txt_Admin
         <div class="flex flex-col">
             <select name="llms_txt_settings[ai_provider]" id="llms_txt_ai_provider" class="regular-text">
                 <option value="openai" <?php selected($value, 'openai'); ?>>
-                    <?php _e('OpenAI (ChatGPT)', 'llms-txt-generator'); ?></option>
+                    <?php _e('OpenAI (ChatGPT)', 'llms-txt-generator'); ?>
+                </option>
                 <option value="deepseek" <?php selected($value, 'deepseek'); ?>>
-                    <?php _e('DeepSeek V3 (Gratuito via OpenRouter)', 'llms-txt-generator'); ?></option>
+                    <?php _e('DeepSeek V3 (Gratuito via OpenRouter)', 'llms-txt-generator'); ?>
+                </option>
             </select>
         </div>
         <p class="description">
-            <?php _e('Selecione qual provedor de IA usar para gerar descrições automáticas.', 'llms-txt-generator'); ?></p>
+            <?php _e('Selecione qual provedor de IA usar para gerar descrições automáticas.', 'llms-txt-generator'); ?>
+        </p>
         <div class="mt-2">
             <p class="text-sm">
                 <strong><?php _e('Links úteis:', 'llms-txt-generator'); ?></strong><br>
