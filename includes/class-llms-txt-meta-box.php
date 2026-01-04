@@ -471,6 +471,11 @@ class LLMS_Txt_Meta_Box
                 wp_send_json_error(array('message' => __('Chave da API OpenRouter (DeepSeek) não configurada.', 'llms-txt-generator')));
             }
             $api_key = $settings['deepseek_api_key'];
+        } elseif ($api_provider === 'gemini') {
+            if (!isset($settings['gemini_api_key']) || empty($settings['gemini_api_key'])) {
+                wp_send_json_error(array('message' => __('Chave da API Google Gemini não configurada.', 'llms-txt-generator')));
+            }
+            $api_key = $settings['gemini_api_key'];
         } else {
             wp_send_json_error(array('message' => __('Provedor de API inválido.', 'llms-txt-generator')));
         }
@@ -574,6 +579,28 @@ class LLMS_Txt_Meta_Box
                     'temperature' => 0.5, // Mantido para respostas precisas e técnicas
                 ))
             ));
+        } elseif ($api_provider === 'gemini') {
+            // Requisição para a API Google Gemini
+            $response = wp_remote_post('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' . $api_key, array(
+                'headers' => array(
+                    'Content-Type' => 'application/json',
+                ),
+                'timeout' => 30,
+                'body' => json_encode(array(
+                    'contents' => array(
+                        array(
+                            'role' => 'user',
+                            'parts' => array(
+                                array('text' => $system_prompt . "\n\n" . $content)
+                            )
+                        )
+                    ),
+                    'generationConfig' => array(
+                        'temperature' => 0.3,
+                        'maxOutputTokens' => 150,
+                    )
+                ))
+            ));
         } else {
             // Requisição para a API DeepSeek R1 via OpenRouter
             $response = wp_remote_post('https://openrouter.ai/api/v1/chat/completions', array(
@@ -622,9 +649,21 @@ class LLMS_Txt_Meta_Box
         $body = wp_remote_retrieve_body($response);
         $data = json_decode($body, true);
 
-        if (isset($data['choices'][0]['message']['content'])) {
-            $description = trim($data['choices'][0]['message']['content']);
+        // Extrair descrição baseado no provedor
+        $description = null;
+        if ($api_provider === 'gemini') {
+            // Formato de resposta do Google Gemini
+            if (isset($data['candidates'][0]['content']['parts'][0]['text'])) {
+                $description = trim($data['candidates'][0]['content']['parts'][0]['text']);
+            }
+        } else {
+            // Formato de resposta da OpenAI e DeepSeek
+            if (isset($data['choices'][0]['message']['content'])) {
+                $description = trim($data['choices'][0]['message']['content']);
+            }
+        }
 
+        if ($description) {
             // Limitar a 350 caracteres (padrão de 1-3 frases)
             if (mb_strlen($description ?? '', 'UTF-8') > 350) {
                 $description = mb_substr($description ?? '', 0, 347, 'UTF-8') . '...';
