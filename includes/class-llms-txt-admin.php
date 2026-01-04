@@ -300,6 +300,11 @@ class LLMS_Txt_Admin
             $sanitized['deepseek_api_key'] = sanitize_text_field($input['deepseek_api_key']);
         }
 
+        // Chave da API Google Gemini
+        if (isset($input['gemini_api_key'])) {
+            $sanitized['gemini_api_key'] = sanitize_text_field($input['gemini_api_key']);
+        }
+
         // Geração automática
         $sanitized['auto_generate'] = isset($input['auto_generate']) ? '1' : '0';
 
