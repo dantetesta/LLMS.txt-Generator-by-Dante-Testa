@@ -1,6 +1,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/WordPress-Plugin-blue.svg" alt="WordPress Plugin">
-  <img src="https://img.shields.io/badge/Versão-2.0.4-green.svg" alt="Versão">
+  <img src="https://img.shields.io/badge/Versão-2.2.0-green.svg" alt="Versão">
+  <img src="https://img.shields.io/badge/PHP-8.0+-purple.svg" alt="PHP 8.0+">
   <img src="https://img.shields.io/badge/Licença-GPL%20v2%2B-orange.svg" alt="Licença">
 </p>
 
@@ -19,7 +20,7 @@
 
 <div align="center" style="margin: 30px 0;">
   <a href="https://github.com/dantetesta/LLMS.txt-Generator-by-Dante-Testa/archive/refs/heads/main.zip" style="display:inline-block;">
-    <img src="https://img.shields.io/badge/DOWNLOAD%20PLUGIN-Vers%C3%A3o%202.0.4-2ea44f?style=for-the-badge&logo=wordpress&logoColor=white" alt="DOWNLOAD PLUGIN" width="300">
+    <img src="https://img.shields.io/badge/DOWNLOAD%20PLUGIN-Vers%C3%A3o%202.2.0-2ea44f?style=for-the-badge&logo=wordpress&logoColor=white" alt="DOWNLOAD PLUGIN" width="300">
   </a>
 </div>
 
@@ -41,12 +42,14 @@ Este plugin simplifica a criação e gerenciamento deste arquivo em sites WordPr
 
 ### Descrições Técnicas com IA
 
-- **Integração com OpenAI**: Gere descrições técnicas automaticamente usando GPT-4 e outros modelos
-- **Integração com DeepSeek**: Alternativa à OpenAI com o modelo DeepSeek-Coder
+- **Integração com OpenAI**: Gere descrições técnicas automaticamente usando GPT-3.5-turbo e outros modelos
+- **Integração com DeepSeek**: Alternativa gratuita à OpenAI via OpenRouter com o modelo DeepSeek Chat v3
+- **Integração com Google Gemini**: Novo! Use o modelo Gemini Flash 2.0 para geração rápida e gratuita
 - **Geração individual**: Crie descrições para posts específicos
 - **Geração em massa**: Ferramenta para processar múltiplos posts simultaneamente
 - **Customização manual**: Edite as descrições geradas conforme necessário
 - **Suporte a CPTs**: Funciona com qualquer tipo de post personalizado
+- **Validação de API Keys**: Verifique suas chaves de API antes de usar
 
 ### Interface Administrativa
 
@@ -178,6 +181,23 @@ Se este plugin está ajudando seu site a ter uma melhor interação com IAs, con
 - [Link direto para doação](https://www.paypal.com/donate/?hosted_button_id=BAQGVU8MGWDTN)
 
 ## 📝 Changelog
+
+### 2.2.0 (Janeiro 2026)
+- 🤖 **Novo! Integração com Google Gemini API (Flash 2.0)**
+- ✨ **Terceira opção de provedor de IA**: OpenAI, DeepSeek e agora Gemini
+- 🎨 **Novo card de seleção do Gemini na interface de configurações**
+- 🔑 **Campo dedicado para chave API do Google Gemini**
+- ✅ **Validação de chave API do Gemini com feedback visual**
+- 🔗 **Link direto para obter chave gratuita no Google AI Studio**
+- ⚡ **Geração de descrições via Gemini na meta-box individual**
+- 📦 **Suporte ao Gemini no bulk generator para processamento em massa**
+- 🛡️ **Compatibilidade com PHP 8.0+ e WordPress 6.9**
+- 🔧 **Correções de compatibilidade com propriedades dinâmicas (PHP 8.2+)**
+
+### 2.1.0 (Janeiro 2026)
+- 🔧 **Correções de compatibilidade com PHP 8.2+**
+- 🛡️ **Declaração explícita de propriedades de classe**
+- ⚡ **Melhorias de performance e estabilidade**
 
 ### 2.0.4 (Janeiro 2025)
 - 🌐 **Tradução completa para inglês americano (en_US)**
