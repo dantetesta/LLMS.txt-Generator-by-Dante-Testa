@@ -24,6 +24,14 @@
   </a>
 </div>
 
+<div align="center" style="margin: 20px 0; padding: 15px; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); border-radius: 12px;">
+  <h3>💬 Participe da Comunidade!</h3>
+  <p><b>Entre no nosso grupo de WhatsApp para networking, dúvidas e novidades sobre WordPress e IA</b></p>
+  <a href="https://chat.whatsapp.com/HPvy2fzidRM2jhNj7ii22u">
+    <img src="https://img.shields.io/badge/ENTRAR%20NO%20GRUPO-WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" alt="Grupo WhatsApp" width="280">
+  </a>
+</div>
+
 ## 🔎 O que é o arquivo llms.txt?
 
 O arquivo llms.txt é um padrão emergente similar ao robots.txt, mas focado em Inteligências Artificiais como ChatGPT, Claude e Gemini. Ele permite que proprietários de sites controlem quais partes do seu conteúdo podem ser acessadas, lidas e utilizadas por modelos de IA para treinamento ou geração de conteúdo.
