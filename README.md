@@ -1,7 +1,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/WordPress-Plugin-blue.svg" alt="WordPress Plugin">
-  <img src="https://img.shields.io/badge/Versão-2.2.0-green.svg" alt="Versão">
-  <img src="https://img.shields.io/badge/PHP-8.0+-purple.svg" alt="PHP 8.0+">
+  <img src="https://img.shields.io/badge/Versão-2.3.0-green.svg" alt="Versão">
+  <img src="https://img.shields.io/badge/PHP-8.2+-purple.svg" alt="PHP 8.2+">
   <img src="https://img.shields.io/badge/Licença-GPL%20v2%2B-orange.svg" alt="Licença">
 </p>
 
@@ -20,7 +20,7 @@
 
 <div align="center" style="margin: 30px 0;">
   <a href="https://github.com/dantetesta/LLMS.txt-Generator-by-Dante-Testa/archive/refs/heads/main.zip" style="display:inline-block;">
-    <img src="https://img.shields.io/badge/DOWNLOAD%20PLUGIN-Vers%C3%A3o%202.2.0-2ea44f?style=for-the-badge&logo=wordpress&logoColor=white" alt="DOWNLOAD PLUGIN" width="300">
+    <img src="https://img.shields.io/badge/DOWNLOAD%20PLUGIN-Vers%C3%A3o%202.3.0-2ea44f?style=for-the-badge&logo=wordpress&logoColor=white" alt="DOWNLOAD PLUGIN" width="300">
   </a>
 </div>
 
@@ -189,6 +189,23 @@ Se este plugin está ajudando seu site a ter uma melhor interação com IAs, con
 - [Link direto para doação](https://www.paypal.com/donate/?hosted_button_id=BAQGVU8MGWDTN)
 
 ## 📝 Changelog
+
+### 2.3.0 (Abril 2026)
+- 🛡️ **Hardening de segurança completo**: sanitização de nonces com `sanitize_text_field(wp_unslash())` em todos os handlers AJAX
+- 🛡️ **Verificação de capability** (`current_user_can`) no bulk action handler
+- 🛡️ **Verificação de nonce WordPress** (`bulk-posts`) no processamento de ações em massa
+- 🛡️ **Escape de mensagens de erro** de APIs externas com `esc_html()` contra XSS refletido
+- 🛡️ **`sslverify => true` explícito** em todas as chamadas `wp_remote_post` (OpenAI, DeepSeek, Gemini)
+- 🛡️ **Sanitização de `$_REQUEST`** com `wp_unslash()` e `absint()` no bulk action
+- 🛡️ **`esc_attr()`/`esc_html()`** em outputs do template meta-box
+- 🔧 **PHP 8.2+ obrigatório**: `Requires PHP` atualizado de 8.0 para 8.2
+- 🔧 **Null safety**: cast `(string)` em `strip_tags`, `preg_replace`, `mb_strlen`, `mb_substr`
+- 🔧 **`strip_tags()` substituído por `wp_strip_all_tags()`** nos handlers AJAX
+- 🔧 **`substr()` substituído por `mb_substr()`** para suporte UTF-8 correto
+- 🔧 **`date()` substituído por `wp_date()`** no rodapé do llms.txt
+- 🔧 **Tipagem nullable** em `LLMS_Txt_I18n::$instance`
+- 🔧 **`error_log()` condicionado a `WP_DEBUG`** em produção (removidos ~15 logs soltos)
+- ✅ Validado com PHP 8.4.12, PHPCompatibility 8.2-8.4 (0 erros), PHPStan level 6
 
 ### 2.2.0 (Janeiro 2026)
 - 🤖 **Novo! Integração com Google Gemini API (Flash 2.0)**
