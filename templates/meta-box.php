@@ -204,7 +204,7 @@ $editor_class = $using_classic_editor ? 'classic-editor' : 'block-editor';
     }
 </style>
 
-<div class="llms-txt-wrapper llms-txt-meta-box <?php echo $editor_class; ?>">
+<div class="llms-txt-wrapper llms-txt-meta-box <?php echo esc_attr($editor_class); ?>">
     <!-- Wrapper para isolar os estilos -->
     <div style="background-color: #fff; padding: 15px; border-radius: 4px;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
@@ -254,16 +254,16 @@ $editor_class = $using_classic_editor ? 'classic-editor' : 'block-editor';
 
                     <?php if ($has_api_key): ?>
                         <span id="llms_txt_provider_badge"
-                            style="margin-left: 8px; display: inline-block; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold; background-color: <?php echo $provider_color; ?>; color: white;"
+                            style="margin-left: 8px; display: inline-block; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold; background-color: <?php echo esc_attr($provider_color); ?>; color: white;"
                             class="provider-badge <?php echo $api_provider === 'deepseek' ? 'blue-badge' : 'green-badge'; ?>">
-                            <?php echo $provider_name; ?>
+                            <?php echo esc_html($provider_name); ?>
                         </span>
                     <?php endif; ?>
                 </div>
 
                 <?php if ($has_api_key): ?>
                     <button type="button" id="llms_txt_generate_description"
-                        style="background-color: <?php echo $provider_color; ?>; color: white; font-size: 12px; font-weight: bold; padding: 4px 8px; border-radius: 4px; border: none; cursor: pointer;"
+                        style="background-color: <?php echo esc_attr($provider_color); ?>; color: white; font-size: 12px; font-weight: bold; padding: 4px 8px; border-radius: 4px; border: none; cursor: pointer;"
                         class="generate-button">
                         <?php _e('Gerar automaticamente', 'llms-txt-generator'); ?>
                     </button>

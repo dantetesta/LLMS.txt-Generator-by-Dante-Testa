@@ -143,7 +143,7 @@ class LLMS_Txt_Meta_Box
         }
 
         // Verificar nonce
-        if (!isset($_POST['llms_txt_meta_box_nonce']) || !wp_verify_nonce($_POST['llms_txt_meta_box_nonce'], 'llms_txt_meta_box')) {
+        if (!isset($_POST['llms_txt_meta_box_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['llms_txt_meta_box_nonce'])), 'llms_txt_meta_box')) {
             return;
         }
 
@@ -161,7 +161,7 @@ class LLMS_Txt_Meta_Box
         update_post_meta($post_id, '_llms_txt_exclude', $exclude);
 
         if (isset($_POST['llms_txt_description'])) {
-            $description = sanitize_text_field($_POST['llms_txt_description']);
+            $description = sanitize_text_field(wp_unslash($_POST['llms_txt_description']));
             update_post_meta($post_id, '_llms_txt_description', $description);
         }
 
@@ -439,7 +439,7 @@ class LLMS_Txt_Meta_Box
     public function ajax_generate_description()
     {
         // Verificar nonce
-        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'llms_txt_ajax_nonce')) {
+        if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'llms_txt_ajax_nonce')) {
             wp_send_json_error(array('message' => __('Erro de segurança. Por favor, recarregue a página.', 'llms-txt-generator')));
         }
 
@@ -493,9 +493,9 @@ class LLMS_Txt_Meta_Box
             switch ($content_source) {
                 case 'post_excerpt':
                     if (!empty($post->post_excerpt)) {
-                        $content .= ' ' . strip_tags($post->post_excerpt);
+                        $content .= ' ' . wp_strip_all_tags((string) $post->post_excerpt);
                     } else {
-                        $content .= ' ' . strip_tags($post->post_content);
+                        $content .= ' ' . wp_strip_all_tags((string) ($post->post_content ?? ''));
                     }
                     break;
 
@@ -515,7 +515,7 @@ class LLMS_Txt_Meta_Box
                                 if (is_array($meta_value)) {
                                     $meta_value = implode(', ', $meta_value);
                                 }
-                                $meta_values[] = strip_tags($meta_value);
+                                $meta_values[] = wp_strip_all_tags((string) $meta_value);
                             }
                         }
 
@@ -523,25 +523,25 @@ class LLMS_Txt_Meta_Box
                             $content .= ' ' . implode(' | ', $meta_values);
                         } else {
                             // Fallback para conteúdo se não houver metafields
-                            $content .= ' ' . strip_tags($post->post_content);
+                            $content .= ' ' . wp_strip_all_tags((string) ($post->post_content ?? ''));
                         }
                     } else {
                         // Fallback para conteúdo se não houver campos configurados
-                        $content .= ' ' . strip_tags($post->post_content);
+                        $content .= ' ' . wp_strip_all_tags((string) ($post->post_content ?? ''));
                     }
                     break;
 
                 case 'post_content':
                 default:
-                    $content .= ' ' . strip_tags($post->post_content);
+                    $content .= ' ' . wp_strip_all_tags((string) ($post->post_content ?? ''));
                     break;
             }
         } else {
             // Para posts e páginas nativos, usar conteúdo padrão
-            $content .= ' ' . strip_tags($post->post_content);
+            $content .= ' ' . wp_strip_all_tags((string) ($post->post_content ?? ''));
         }
 
-        $content = substr($content, 0, 2000); // Limitado a 2000 caracteres para melhor contexto
+        $content = mb_substr($content, 0, 2000, 'UTF-8'); // Limitado a 2000 caracteres para melhor contexto
 
         // Prompt para geração de descrição técnica
         // Prompt para geração de descrição para llms.txt
@@ -563,6 +563,7 @@ class LLMS_Txt_Meta_Box
                     'Content-Type' => 'application/json',
                 ),
                 'timeout' => 30,
+                'sslverify' => true,
                 'body' => json_encode(array(
                     'model' => 'gpt-3.5-turbo',
                     'messages' => array(
@@ -586,6 +587,7 @@ class LLMS_Txt_Meta_Box
                     'Content-Type' => 'application/json',
                 ),
                 'timeout' => 30,
+                'sslverify' => true,
                 'body' => json_encode(array(
                     'contents' => array(
                         array(
@@ -611,6 +613,7 @@ class LLMS_Txt_Meta_Box
                     'X-Title' => 'LLMS.txt Generator' // Nome da aplicação
                 ),
                 'timeout' => 30,
+                'sslverify' => true,
                 'body' => json_encode(array(
                     'model' => 'deepseek/deepseek-chat-v3-0324:free',
                     'messages' => array(
@@ -642,7 +645,7 @@ class LLMS_Txt_Meta_Box
             $data = json_decode($body, true);
             $error_message = isset($data['error']['message']) ? $data['error']['message'] : __('Erro ao comunicar com a API.', 'llms-txt-generator');
 
-            wp_send_json_error(array('message' => $error_message));
+            wp_send_json_error(array('message' => esc_html($error_message)));
         }
 
         // Processar resposta
@@ -665,8 +668,9 @@ class LLMS_Txt_Meta_Box
 
         if ($description) {
             // Limitar a 350 caracteres (padrão de 1-3 frases)
-            if (mb_strlen($description ?? '', 'UTF-8') > 350) {
-                $description = mb_substr($description ?? '', 0, 347, 'UTF-8') . '...';
+            $description = (string) $description;
+            if (mb_strlen($description, 'UTF-8') > 350) {
+                $description = mb_substr($description, 0, 347, 'UTF-8') . '...';
             }
 
             // Salvar a descrição como meta dado

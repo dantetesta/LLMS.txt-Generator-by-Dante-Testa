@@ -23,9 +23,9 @@ class LLMS_Txt_I18n {
      * Instância única da classe (padrão Singleton)
      *
      * @since 1.0.0
-     * @var LLMS_Txt_I18n
+     * @var LLMS_Txt_I18n|null
      */
-    private static $instance = null;
+    private static ?LLMS_Txt_I18n $instance = null;
 
     /**
      * Obtém a instância única da classe

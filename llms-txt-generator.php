@@ -44,8 +44,8 @@ if (!defined('ABSPATH')) {
 }
 
 // Definir constantes do plugin
-define('LLMS_TXT_GENERATOR_VERSION', '2.1.0');
-define('LLMS_TXT_VERSION', '2.1.0'); // Adicionado para compatibilidade com classes que usam esta constante
+define('LLMS_TXT_GENERATOR_VERSION', '2.2.0');
+define('LLMS_TXT_VERSION', '2.2.0'); // Adicionado para compatibilidade com classes que usam esta constante
 define('LLMS_TXT_GENERATOR_FILE', __FILE__);
 define('LLMS_TXT_GENERATOR_PATH', plugin_dir_path(__FILE__));
 define('LLMS_TXT_GENERATOR_URL', plugin_dir_url(__FILE__));

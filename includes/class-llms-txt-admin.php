@@ -231,7 +231,9 @@ class LLMS_Txt_Admin
         $sanitized['include_pages'] = isset($input['include_pages']) && $input['include_pages'] === '1' ? '1' : '0';
 
         // Log para debug
-        error_log('LLMS.txt: Salvando configurações - include_posts: ' . $sanitized['include_posts'] . ', include_pages: ' . $sanitized['include_pages']);
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            error_log('LLMS.txt: Salvando configurações - include_posts: ' . $sanitized['include_posts'] . ', include_pages: ' . $sanitized['include_pages']);
+        }
 
         // Tipos de post adicionais
         if (isset($input['post_types']) && is_array($input['post_types'])) {
@@ -271,9 +273,11 @@ class LLMS_Txt_Admin
                 }
 
                 // Log para debug
-                error_log('LLMS.txt: Salvando fontes de conteúdo para CPTs: ' . print_r($sanitized['cpt_content_source'], true));
-                if (isset($sanitized['cpt_custom_fields'])) {
-                    error_log('LLMS.txt: Salvando campos personalizados para CPTs: ' . print_r($sanitized['cpt_custom_fields'], true));
+                if (defined('WP_DEBUG') && WP_DEBUG) {
+                    error_log('LLMS.txt: Salvando fontes de conteúdo para CPTs: ' . print_r($sanitized['cpt_content_source'], true));
+                    if (isset($sanitized['cpt_custom_fields'])) {
+                        error_log('LLMS.txt: Salvando campos personalizados para CPTs: ' . print_r($sanitized['cpt_custom_fields'], true));
+                    }
                 }
             }
         } else {
@@ -476,7 +480,7 @@ class LLMS_Txt_Admin
     public function ajax_validate_api_key()
     {
         // Verificar nonce
-        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'llms_txt_ajax_nonce')) {
+        if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'llms_txt_ajax_nonce')) {
             wp_send_json_error(array('message' => __('Erro de segurança. Por favor, recarregue a página.', 'llms-txt-generator')));
         }
 
@@ -490,8 +494,8 @@ class LLMS_Txt_Admin
             wp_send_json_error(array('message' => __('Por favor, insira uma chave de API válida.', 'llms-txt-generator')));
         }
 
-        $api_key = sanitize_text_field($_POST['api_key']);
-        $api_provider = isset($_POST['api_provider']) ? sanitize_text_field($_POST['api_provider']) : 'openai';
+        $api_key = sanitize_text_field(wp_unslash($_POST['api_key']));
+        $api_provider = isset($_POST['api_provider']) ? sanitize_text_field(wp_unslash($_POST['api_provider'])) : 'openai';
 
         // Configurar os parâmetros da requisição com base no provedor
         if ($api_provider === 'openai') {
@@ -581,7 +585,7 @@ class LLMS_Txt_Admin
                 }
             }
 
-            wp_send_json_error(array('message' => $error_message));
+            wp_send_json_error(array('message' => esc_html($error_message)));
         }
     }
 

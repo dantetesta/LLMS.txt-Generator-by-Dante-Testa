@@ -386,11 +386,11 @@ class LLMS_Txt_File
                                 case 'post_content':
                                 default:
                                     // Usar o início do conteúdo como descrição
-                                    $content_text = wp_strip_all_tags($post->post_content);
-                                    $content_text = preg_replace('/\s+/', ' ', $content_text); // Remover quebras de linha e espaços extras
+                                    $content_text = wp_strip_all_tags((string) ($post->post_content ?? ''));
+                                    $content_text = (string) preg_replace('/\s+/', ' ', $content_text); // Remover quebras de linha e espaços extras
 
-                                    if (mb_strlen($content_text ?? '', 'UTF-8') > 350) {
-                                        $description = mb_substr($content_text ?? '', 0, 347, 'UTF-8') . '...';
+                                    if (mb_strlen($content_text, 'UTF-8') > 350) {
+                                        $description = mb_substr($content_text, 0, 347, 'UTF-8') . '...';
                                     } else {
                                         $description = $content_text;
                                     }
@@ -419,7 +419,7 @@ class LLMS_Txt_File
 
         // Adicionar rodapé
         $content .= "\n---\n";
-        $content .= "Gerado por LLMS.txt Generator do Dante Testa www.dantetesta.com.br v" . LLMS_TXT_GENERATOR_VERSION . " | " . date('Y-m-d H:i:s') . "\n";
+        $content .= "Gerado por LLMS.txt Generator do Dante Testa www.dantetesta.com.br v" . LLMS_TXT_GENERATOR_VERSION . " | " . wp_date('Y-m-d H:i:s') . "\n";
 
         return $content;
     }
@@ -471,9 +471,9 @@ class LLMS_Txt_File
         }
 
         // Usar o início do conteúdo como descrição
-        $post_content = $post->post_content ?? '';
+        $post_content = (string) ($post->post_content ?? '');
         $content = wp_strip_all_tags($post_content);
-        $content = preg_replace('/\s+/', ' ', $content) ?? ''; // Remover quebras de linha e espaços extras
+        $content = (string) preg_replace('/\s+/', ' ', $content); // Remover quebras de linha e espaços extras
 
         // Ajustado para 350 caracteres (padrão de 1-3 frases)
         if (mb_strlen($content, 'UTF-8') > 350) {
@@ -545,7 +545,7 @@ class LLMS_Txt_File
     public function ajax_get_preview()
     {
         // Verificar nonce
-        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'llms_txt_ajax_nonce')) {
+        if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'llms_txt_ajax_nonce')) {
             wp_send_json_error(array('message' => __('Erro de segurança. Por favor, recarregue a página.', 'llms-txt-generator')));
         }
 
@@ -569,7 +569,7 @@ class LLMS_Txt_File
     public function ajax_regenerate_file()
     {
         // Verificar nonce
-        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'llms_txt_ajax_nonce')) {
+        if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'llms_txt_ajax_nonce')) {
             wp_send_json_error(array('message' => __('Erro de segurança. Por favor, recarregue a página.', 'llms-txt-generator')));
         }
 
