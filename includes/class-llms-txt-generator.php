@@ -100,11 +100,11 @@ class LLMS_Txt_Generator {
      * @return void
      */
     public function activate(): void {
-        // Verificar versão mínima do PHP (atualizado para 8.0)
-        if (version_compare(PHP_VERSION, '8.0', '<')) {
+        // Verificar versão mínima do PHP (atualizado para 8.2)
+        if (version_compare(PHP_VERSION, '8.2', '<')) {
             deactivate_plugins(plugin_basename(LLMS_TXT_GENERATOR_FILE));
             wp_die(
-                __('O plugin LLMS.txt Generator requer PHP 8.0 ou superior.', 'llms-txt-generator'),
+                __('O plugin LLMS.txt Generator requer PHP 8.2 ou superior.', 'llms-txt-generator'),
                 __('Erro de ativação', 'llms-txt-generator'),
                 array('back_link' => true)
             );
