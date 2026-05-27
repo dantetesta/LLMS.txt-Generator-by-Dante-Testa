@@ -294,19 +294,29 @@ class LLMS_Txt_Admin
             $sanitized['ai_provider'] = sanitize_text_field($input['ai_provider']);
         }
 
-        // Chave da API OpenAI
-        if (isset($input['openai_api_key'])) {
-            $sanitized['openai_api_key'] = sanitize_text_field($input['openai_api_key']);
-        }
+        // Chaves de API: criptografar antes de salvar. Campo vazio preserva o valor
+        // já existente para evitar que o usuário apague a chave acidentalmente ao
+        // salvar outras configurações.
+        $existing = get_option('llms_txt_settings', array());
 
-        // Chave da API DeepSeek
-        if (isset($input['deepseek_api_key'])) {
-            $sanitized['deepseek_api_key'] = sanitize_text_field($input['deepseek_api_key']);
-        }
+        foreach (array('openai_api_key', 'deepseek_api_key', 'gemini_api_key') as $key_field) {
+            if (!isset($input[$key_field])) {
+                if (isset($existing[$key_field])) {
+                    $sanitized[$key_field] = $existing[$key_field];
+                }
+                continue;
+            }
 
-        // Chave da API Google Gemini
-        if (isset($input['gemini_api_key'])) {
-            $sanitized['gemini_api_key'] = sanitize_text_field($input['gemini_api_key']);
+            $submitted = trim(sanitize_text_field($input[$key_field]));
+
+            if ($submitted === '') {
+                if (isset($existing[$key_field])) {
+                    $sanitized[$key_field] = $existing[$key_field];
+                }
+                continue;
+            }
+
+            $sanitized[$key_field] = LLMS_Txt_Crypto::encrypt($submitted);
         }
 
         // Geração automática
@@ -780,11 +790,14 @@ class LLMS_Txt_Admin
     public function field_openai_api_key_callback()
     {
         $settings = $this->get_settings();
-        $value = isset($settings['openai_api_key']) ? $settings['openai_api_key'] : '';
+        $has_key = !empty($settings['openai_api_key']);
+        $placeholder = $has_key
+            ? __('•••• chave salva — deixe em branco para manter', 'llms-txt-generator')
+            : __('sk-...', 'llms-txt-generator');
         ?>
         <div class="flex flex-col openai-api-fields" data-provider="openai">
             <input type="password" name="llms_txt_settings[openai_api_key]" id="llms_txt_openai_api_key" class="regular-text"
-                value="<?php echo esc_attr($value); ?>">
+                value="" autocomplete="off" placeholder="<?php echo esc_attr($placeholder); ?>">
             <button type="button" id="llms_txt_validate_openai_api_key"
                 class="button button-secondary mt-2 w-40"><?php _e('Validar Chave', 'llms-txt-generator'); ?></button>
             <div id="llms_txt_openai_api_validation_result" class="mt-2"></div>
@@ -806,11 +819,14 @@ class LLMS_Txt_Admin
     public function field_deepseek_api_key_callback()
     {
         $settings = $this->get_settings();
-        $value = isset($settings['deepseek_api_key']) ? $settings['deepseek_api_key'] : '';
+        $has_key = !empty($settings['deepseek_api_key']);
+        $placeholder = $has_key
+            ? __('•••• chave salva — deixe em branco para manter', 'llms-txt-generator')
+            : __('sk-or-...', 'llms-txt-generator');
         ?>
         <div class="flex flex-col deepseek-api-fields" data-provider="deepseek">
             <input type="password" name="llms_txt_settings[deepseek_api_key]" id="llms_txt_deepseek_api_key"
-                class="regular-text" value="<?php echo esc_attr($value); ?>">
+                class="regular-text" value="" autocomplete="off" placeholder="<?php echo esc_attr($placeholder); ?>">
             <button type="button" id="llms_txt_validate_deepseek_api_key"
                 class="button button-secondary mt-2 w-40"><?php _e('Validar Chave', 'llms-txt-generator'); ?></button>
             <div id="llms_txt_deepseek_api_validation_result" class="mt-2"></div>

@@ -258,10 +258,12 @@ class LLMS_Txt_Bulk_Generator
             return $location; // Nenhuma ação nossa
         }
 
-        // Verificar nonce do bulk action do WordPress
+        // Verificar nonce do bulk action do WordPress. Em caso de falha, sinalizar
+        // explicitamente o erro via querystring para que o admin saiba que a ação
+        // não foi executada por motivo de segurança.
         $wp_nonce = isset($_REQUEST['_wpnonce']) ? sanitize_text_field(wp_unslash($_REQUEST['_wpnonce'])) : '';
         if (!wp_verify_nonce($wp_nonce, 'bulk-posts')) {
-            return $location;
+            return add_query_arg('llms_txt_bulk_error', 'invalid_nonce', $location);
         }
 
         // Obter IDs dos posts selecionados e sanitizar
@@ -554,7 +556,7 @@ class LLMS_Txt_Bulk_Generator
     {
         // Verificar se temos uma chave de API
         $settings = get_option('llms_txt_settings', array());
-        $api_key = isset($settings['openai_api_key']) ? $settings['openai_api_key'] : '';
+        $api_key = LLMS_Txt_Crypto::decrypt(isset($settings['openai_api_key']) ? $settings['openai_api_key'] : '');
 
         if (empty($api_key)) {
             return new WP_Error('no_api_key', __('Chave de API da OpenAI não configurada.', 'llms-txt-generator'));
@@ -588,7 +590,7 @@ class LLMS_Txt_Bulk_Generator
             'timeout' => 30,
             'sslverify' => true,
             'body' => json_encode(array(
-                'model' => 'gpt-3.5-turbo',
+                'model' => 'gpt-4o-mini',
                 'messages' => array(
                     array(
                         'role' => 'system',
@@ -638,7 +640,7 @@ class LLMS_Txt_Bulk_Generator
     {
         // Verificar se temos uma chave de API
         $settings = get_option('llms_txt_settings', array());
-        $api_key = isset($settings['deepseek_api_key']) ? $settings['deepseek_api_key'] : '';
+        $api_key = LLMS_Txt_Crypto::decrypt(isset($settings['deepseek_api_key']) ? $settings['deepseek_api_key'] : '');
 
         if (empty($api_key)) {
             return new WP_Error('no_api_key', __('Chave de API do DeepSeek não configurada.', 'llms-txt-generator'));
@@ -724,7 +726,7 @@ class LLMS_Txt_Bulk_Generator
     {
         // Verificar se temos uma chave de API
         $settings = get_option('llms_txt_settings', array());
-        $api_key = isset($settings['gemini_api_key']) ? $settings['gemini_api_key'] : '';
+        $api_key = LLMS_Txt_Crypto::decrypt(isset($settings['gemini_api_key']) ? $settings['gemini_api_key'] : '');
 
         if (empty($api_key)) {
             return new WP_Error('no_api_key', __('Chave de API do Google Gemini não configurada.', 'llms-txt-generator'));

@@ -166,6 +166,19 @@ class LLMS_Txt_File
         // Adicionar BOM (Byte Order Mark) para garantir que o arquivo seja reconhecido como UTF-8
         $content = "\xEF\xBB\xBF" . $content;
 
+        // Verificar permissão de escrita antes de tentar gravar. Se o destino existe
+        // mas não é gravável, ou o diretório não é gravável, abortar com log.
+        $target_dir = dirname($this->file_path);
+        $writable = (file_exists($this->file_path) && is_writable($this->file_path))
+            || (!file_exists($this->file_path) && is_writable($target_dir));
+
+        if (!$writable) {
+            if (function_exists('error_log')) {
+                error_log('LLMS.txt Generator: destino não gravável em ' . $this->file_path);
+            }
+            return false;
+        }
+
         // Tentar escrever o arquivo com codificação UTF-8
         $result = @file_put_contents($this->file_path, $content);
 

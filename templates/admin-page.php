@@ -761,9 +761,9 @@ $post_types = $admin->get_available_post_types();
                                     <div class="relative">
                                         <input type="password" id="llms_txt_openai_api_key"
                                             name="llms_txt_settings[openai_api_key]"
-                                            value="<?php echo esc_attr(isset($settings['openai_api_key']) ? $settings['openai_api_key'] : ''); ?>"
+                                            value="" autocomplete="off"
                                             class="w-full px-3 py-2 pr-16 md:pr-28 text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                            placeholder="<?php _e('Insira sua chave API OpenAI', 'llms-txt-generator'); ?>">
+                                            placeholder="<?php echo esc_attr(!empty($settings['openai_api_key']) ? __('•••• chave salva — deixe em branco para manter', 'llms-txt-generator') : __('Insira sua chave API OpenAI', 'llms-txt-generator')); ?>">
                                         <button type="button"
                                             class="password-toggle absolute inset-y-0 right-0 px-3 py-2 text-sm font-medium text-blue-600 hover:text-blue-800 focus:outline-none flex items-center transition-colors duration-200 bg-gray-50 border-l border-gray-300 rounded-r-md"
                                             aria-label="<?php _e('Alternar visibilidade da chave', 'llms-txt-generator'); ?>"
@@ -820,9 +820,9 @@ $post_types = $admin->get_available_post_types();
                                     <div class="relative">
                                         <input type="password" id="llms_txt_deepseek_api_key"
                                             name="llms_txt_settings[deepseek_api_key]"
-                                            value="<?php echo esc_attr(isset($settings['deepseek_api_key']) ? $settings['deepseek_api_key'] : ''); ?>"
+                                            value="" autocomplete="off"
                                             class="w-full px-3 py-2 pr-16 md:pr-28 text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                            placeholder="<?php _e('Insira sua chave API OpenRouter', 'llms-txt-generator'); ?>">
+                                            placeholder="<?php echo esc_attr(!empty($settings['deepseek_api_key']) ? __('•••• chave salva — deixe em branco para manter', 'llms-txt-generator') : __('Insira sua chave API OpenRouter', 'llms-txt-generator')); ?>">
                                         <button type="button"
                                             class="password-toggle absolute inset-y-0 right-0 px-3 py-2 text-sm font-medium text-blue-600 hover:text-blue-800 focus:outline-none flex items-center transition-colors duration-200 bg-gray-50 border-l border-gray-300 rounded-r-md"
                                             aria-label="<?php _e('Alternar visibilidade da chave', 'llms-txt-generator'); ?>"
@@ -879,9 +879,9 @@ $post_types = $admin->get_available_post_types();
                                     <div class="relative">
                                         <input type="password" id="llms_txt_gemini_api_key"
                                             name="llms_txt_settings[gemini_api_key]"
-                                            value="<?php echo esc_attr(isset($settings['gemini_api_key']) ? $settings['gemini_api_key'] : ''); ?>"
+                                            value="" autocomplete="off"
                                             class="w-full px-3 py-2 pr-16 md:pr-28 text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                            placeholder="<?php _e('Insira sua chave API Gemini', 'llms-txt-generator'); ?>">
+                                            placeholder="<?php echo esc_attr(!empty($settings['gemini_api_key']) ? __('•••• chave salva — deixe em branco para manter', 'llms-txt-generator') : __('Insira sua chave API Gemini', 'llms-txt-generator')); ?>">
                                         <button type="button"
                                             class="password-toggle absolute inset-y-0 right-0 px-3 py-2 text-sm font-medium text-blue-600 hover:text-blue-800 focus:outline-none flex items-center transition-colors duration-200 bg-gray-50 border-l border-gray-300 rounded-r-md"
                                             aria-label="<?php _e('Alternar visibilidade da chave', 'llms-txt-generator'); ?>"

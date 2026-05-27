@@ -460,22 +460,22 @@ class LLMS_Txt_Meta_Box
         $settings = get_option('llms_txt_settings', array());
         $api_provider = isset($settings['ai_provider']) ? $settings['ai_provider'] : 'openai';
 
-        // Verificar se a chave da API está configurada
+        // Verificar se a chave da API está configurada (chaves são decriptadas em memória)
         if ($api_provider === 'openai') {
             if (!isset($settings['openai_api_key']) || empty($settings['openai_api_key'])) {
                 wp_send_json_error(array('message' => __('Chave da API OpenAI não configurada.', 'llms-txt-generator')));
             }
-            $api_key = $settings['openai_api_key'];
+            $api_key = LLMS_Txt_Crypto::decrypt($settings['openai_api_key']);
         } elseif ($api_provider === 'deepseek') {
             if (!isset($settings['deepseek_api_key']) || empty($settings['deepseek_api_key'])) {
                 wp_send_json_error(array('message' => __('Chave da API OpenRouter (DeepSeek) não configurada.', 'llms-txt-generator')));
             }
-            $api_key = $settings['deepseek_api_key'];
+            $api_key = LLMS_Txt_Crypto::decrypt($settings['deepseek_api_key']);
         } elseif ($api_provider === 'gemini') {
             if (!isset($settings['gemini_api_key']) || empty($settings['gemini_api_key'])) {
                 wp_send_json_error(array('message' => __('Chave da API Google Gemini não configurada.', 'llms-txt-generator')));
             }
-            $api_key = $settings['gemini_api_key'];
+            $api_key = LLMS_Txt_Crypto::decrypt($settings['gemini_api_key']);
         } else {
             wp_send_json_error(array('message' => __('Provedor de API inválido.', 'llms-txt-generator')));
         }
@@ -565,7 +565,7 @@ class LLMS_Txt_Meta_Box
                 'timeout' => 30,
                 'sslverify' => true,
                 'body' => json_encode(array(
-                    'model' => 'gpt-3.5-turbo',
+                    'model' => 'gpt-4o-mini',
                     'messages' => array(
                         array(
                             'role' => 'system',

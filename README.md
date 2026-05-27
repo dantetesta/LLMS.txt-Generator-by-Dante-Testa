@@ -1,6 +1,6 @@
 <p align="center">
   <img src="https://img.shields.io/badge/WordPress-Plugin-blue.svg" alt="WordPress Plugin">
-  <img src="https://img.shields.io/badge/Versão-2.3.0-green.svg" alt="Versão">
+  <img src="https://img.shields.io/badge/Versão-2.3.1-green.svg" alt="Versão">
   <img src="https://img.shields.io/badge/PHP-8.2+-purple.svg" alt="PHP 8.2+">
   <img src="https://img.shields.io/badge/Licença-GPL%20v2%2B-orange.svg" alt="Licença">
 </p>
@@ -20,7 +20,7 @@
 
 <div align="center" style="margin: 30px 0;">
   <a href="https://github.com/dantetesta/LLMS.txt-Generator-by-Dante-Testa/archive/refs/heads/main.zip" style="display:inline-block;">
-    <img src="https://img.shields.io/badge/DOWNLOAD%20PLUGIN-Vers%C3%A3o%202.3.0-2ea44f?style=for-the-badge&logo=wordpress&logoColor=white" alt="DOWNLOAD PLUGIN" width="300">
+    <img src="https://img.shields.io/badge/DOWNLOAD%20PLUGIN-Vers%C3%A3o%202.3.1-2ea44f?style=for-the-badge&logo=wordpress&logoColor=white" alt="DOWNLOAD PLUGIN" width="300">
   </a>
 </div>
 
@@ -50,7 +50,7 @@ Este plugin simplifica a criação e gerenciamento deste arquivo em sites WordPr
 
 ### Descrições Técnicas com IA
 
-- **Integração com OpenAI**: Gere descrições técnicas automaticamente usando GPT-3.5-turbo e outros modelos
+- **Integração com OpenAI**: Gere descrições técnicas automaticamente usando GPT-4o mini (modelo rápido e econômico que substitui o descontinuado GPT-3.5-turbo)
 - **Integração com DeepSeek**: Alternativa gratuita à OpenAI via OpenRouter com o modelo DeepSeek Chat v3
 - **Integração com Google Gemini**: Novo! Use o modelo Gemini Flash 2.0 para geração rápida e gratuita
 - **Geração individual**: Crie descrições para posts específicos
@@ -189,6 +189,15 @@ Se este plugin está ajudando seu site a ter uma melhor interação com IAs, con
 - [Link direto para doação](https://www.paypal.com/donate/?hosted_button_id=BAQGVU8MGWDTN)
 
 ## 📝 Changelog
+
+### 2.3.1 (Maio 2026)
+- 🤖 **Modelo OpenAI atualizado**: `gpt-3.5-turbo` (descontinuado) substituído por `gpt-4o-mini` (mais barato, mais rápido, mesmo endpoint `/v1/chat/completions`)
+- 🛡️ **Criptografia AES-256-CBC das chaves de API** em `wp_options` via nova classe `LLMS_Txt_Crypto`, com backward compat: valores legados em texto plano continuam funcionando e são re-criptografados no próximo salvamento
+- 🛡️ **Inputs de chave de API não renderizam mais o valor** no atributo `value` do HTML — placeholder indica se já existe chave salva, e campo vazio preserva a chave atual no salvamento
+- 🛡️ **Remoção do arquivo `templates/admin-page.php.bak`** que vazava o código completo da interface admin
+- 🛡️ **`is_writable()` pre-check** antes de `file_put_contents()` na gravação do `llms.txt`, com log em caso de falha
+- 🛡️ **Bulk action com nonce inválido** agora sinaliza o erro via querystring (`llms_txt_bulk_error=invalid_nonce`) em vez de falhar silenciosamente
+- 🧹 `.gitignore` atualizado para excluir `*.bak` e `*.backup` de futuras distribuições
 
 ### 2.3.0 (Abril 2026)
 - 🛡️ **Hardening de segurança completo**: sanitização de nonces com `sanitize_text_field(wp_unslash())` em todos os handlers AJAX

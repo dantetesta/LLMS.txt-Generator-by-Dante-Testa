@@ -25,10 +25,12 @@ vendor/
 *.tar
 *.gz
 
-# Arquivos temporários
+# Arquivos temporários e backup
 *~
+*.bak
+*.backup
+*.tmp
 .sass-cache
-.tmp
 .phpunit.result.cache
 
 # Arquivos de cache do WordPress
