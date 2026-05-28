@@ -339,6 +339,19 @@ class LLMS_Txt_Admin
         // Definir um transient para mostrar um toast personalizado
         set_transient('llms_txt_settings_updated', true, 30);
 
+        // Log de auditoria: registra apenas metadados, nunca valores das chaves.
+        if (class_exists('LLMS_Txt_Logger')) {
+            LLMS_Txt_Logger::info('Configurações salvas', array(
+                'ai_provider'  => isset($sanitized['ai_provider']) ? $sanitized['ai_provider'] : 'unset',
+                'has_openai'   => !empty($sanitized['openai_api_key']),
+                'has_deepseek' => !empty($sanitized['deepseek_api_key']),
+                'has_gemini'   => !empty($sanitized['gemini_api_key']),
+                'enabled'      => !empty($sanitized['enable_llms_txt']),
+                'auto_generate' => !empty($sanitized['auto_generate']),
+                'user_id'      => get_current_user_id(),
+            ));
+        }
+
         return $sanitized;
     }
 

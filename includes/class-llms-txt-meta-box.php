@@ -634,6 +634,12 @@ class LLMS_Txt_Meta_Box
 
         // Verificar erro na requisição
         if (is_wp_error($response)) {
+            if (class_exists('LLMS_Txt_Logger')) {
+                LLMS_Txt_Logger::error('Falha de conexão com API de IA (meta-box)', array(
+                    'provider' => $api_provider,
+                    'reason'   => $response->get_error_message(),
+                ));
+            }
             wp_send_json_error(array('message' => $response->get_error_message()));
         }
 
@@ -644,6 +650,14 @@ class LLMS_Txt_Meta_Box
             $body = wp_remote_retrieve_body($response);
             $data = json_decode($body, true);
             $error_message = isset($data['error']['message']) ? $data['error']['message'] : __('Erro ao comunicar com a API.', 'llms-txt-generator');
+
+            if (class_exists('LLMS_Txt_Logger')) {
+                LLMS_Txt_Logger::error('API de IA retornou erro (meta-box)', array(
+                    'provider'      => $api_provider,
+                    'response_code' => $response_code,
+                    'message'       => $error_message,
+                ));
+            }
 
             wp_send_json_error(array('message' => esc_html($error_message)));
         }

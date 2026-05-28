@@ -1,6 +1,6 @@
 <p align="center">
   <img src="https://img.shields.io/badge/WordPress-Plugin-blue.svg" alt="WordPress Plugin">
-  <img src="https://img.shields.io/badge/Versão-2.3.1-green.svg" alt="Versão">
+  <img src="https://img.shields.io/badge/Versão-2.3.2-green.svg" alt="Versão">
   <img src="https://img.shields.io/badge/PHP-8.2+-purple.svg" alt="PHP 8.2+">
   <img src="https://img.shields.io/badge/WordPress-5.6+-21759b.svg" alt="WordPress 5.6+">
   <img src="https://img.shields.io/badge/Licença-GPL%20v2%2B-orange.svg" alt="Licença">
@@ -22,7 +22,7 @@
 
 <div align="center" style="margin: 30px 0;">
   <a href="https://github.com/dantetesta/LLMS.txt-Generator-by-Dante-Testa/archive/refs/heads/main.zip" style="display:inline-block;">
-    <img src="https://img.shields.io/badge/DOWNLOAD%20PLUGIN-Vers%C3%A3o%202.3.1-2ea44f?style=for-the-badge&logo=wordpress&logoColor=white" alt="DOWNLOAD PLUGIN" width="300">
+    <img src="https://img.shields.io/badge/DOWNLOAD%20PLUGIN-Vers%C3%A3o%202.3.2-2ea44f?style=for-the-badge&logo=wordpress&logoColor=white" alt="DOWNLOAD PLUGIN" width="300">
   </a>
 </div>
 
@@ -380,6 +380,16 @@ Se o plugin economizou seu tempo ou melhorou seu SEO/AEO, considere:
 ---
 
 ## 📝 Changelog
+
+### 2.3.2 (Maio 2026) — Sistema de logs + i18n fix
+- 📋 **Sistema de log dedicado** via nova classe `LLMS_Txt_Logger`
+  - Captura snapshot completo do ambiente na ativação (versão PHP, WP, locale, extensões `openssl`/`mbstring`/`json`/`curl`, gravabilidade de ABSPATH, `memory_limit`, multisite, user ID)
+  - Registra eventos de desativação, gravação do `llms.txt`, falhas em chamadas a APIs externas (OpenAI/DeepSeek/Gemini), falhas de criptografia, salvamento de configurações
+  - Sanitização automática: chaves contendo `api_key`, `token`, `secret`, `password` ou `auth` são gravadas como `[REDACTED]`
+  - Rotação simples ao passar de 500 KB (mantém `.old`)
+  - Diretório protegido por `.htaccess` (`Deny from all`) e `index.html` vazio em `wp-content/uploads/llms-txt-generator/`
+- 🖥️ **Página admin em Configurações → LLMS.txt Logs** com viewer das últimas 500 linhas, download em texto plano e botão de limpar (com nonce + capability)
+- 🔧 **i18n fix:** `load_plugin_textdomain()` movido de `plugins_loaded` para `init`, eliminando o notice `_load_textdomain_just_in_time` em WP 6.7+ para sites não-PT-BR
 
 ### 2.3.1 (Maio 2026) — Release de segurança
 - 🤖 **Modelo OpenAI atualizado**: `gpt-3.5-turbo` (descontinuado pela OpenAI) substituído por `gpt-4o-mini` — mesmo endpoint `/v1/chat/completions`, mais barato e mais rápido

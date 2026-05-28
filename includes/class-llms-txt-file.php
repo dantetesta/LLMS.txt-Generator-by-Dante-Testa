@@ -173,8 +173,11 @@ class LLMS_Txt_File
             || (!file_exists($this->file_path) && is_writable($target_dir));
 
         if (!$writable) {
-            if (function_exists('error_log')) {
-                error_log('LLMS.txt Generator: destino não gravável em ' . $this->file_path);
+            if (class_exists('LLMS_Txt_Logger')) {
+                LLMS_Txt_Logger::error('Destino do llms.txt não é gravável', array(
+                    'path' => $this->file_path,
+                    'target_dir' => $target_dir,
+                ));
             }
             return false;
         }

@@ -45,6 +45,9 @@ class LLMS_Txt_Crypto
             return $plain;
         }
         if (!function_exists('openssl_encrypt')) {
+            if (class_exists('LLMS_Txt_Logger')) {
+                LLMS_Txt_Logger::warning('openssl indisponível — chave salva sem criptografia');
+            }
             return $plain;
         }
 
@@ -52,6 +55,9 @@ class LLMS_Txt_Crypto
         $cipher = openssl_encrypt($plain, 'aes-256-cbc', self::get_key(), OPENSSL_RAW_DATA, $iv);
 
         if ($cipher === false) {
+            if (class_exists('LLMS_Txt_Logger')) {
+                LLMS_Txt_Logger::error('Falha ao criptografar chave de API — chave salva em texto plano');
+            }
             return $plain;
         }
 
