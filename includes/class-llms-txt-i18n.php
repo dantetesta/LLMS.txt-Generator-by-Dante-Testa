@@ -47,8 +47,10 @@ class LLMS_Txt_I18n {
      * @since 1.0.0
      */
     private function __construct() {
-        // Carregar arquivos de tradução
-        add_action('plugins_loaded', array($this, 'load_plugin_textdomain'));
+        // Carregar arquivos de tradução em `init` (não em `plugins_loaded`).
+        // WP 6.7+ emite notice `_load_textdomain_just_in_time was called incorrectly`
+        // quando traduções carregam antes do hook `init`.
+        add_action('init', array($this, 'load_plugin_textdomain'));
     }
 
     /**
