@@ -1264,8 +1264,8 @@ $post_types = $admin->get_available_post_types();
             <!-- Gravatar do desenvolvedor -->
             <div class="mb-4 md:mb-0 md:mr-6">
                 <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg">
-                    <img src="https://www.gravatar.com/avatar/<?php echo md5('dante.testa@gmail.com'); ?>?s=256&d=mp"
-                        alt="Dante Testa" class="w-full h-full object-cover">
+                    <img src="https://dantetesta.com.br/wp-content/uploads/2026/03/foto-dante-1.webp"
+                        alt="Dante Testa" class="w-full h-full object-cover" loading="lazy">
                 </div>
             </div>
 
